@@ -1,63 +1,161 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Bird Portfolio</title>
-<style>
-*{margin:0;padding:0;box-sizing:border-box}
-body{font-family: Arial, Helvetica, sans-serif;line-height:1.6;color:#333;}
-nav{background:#111;color:#fff;padding:15px;position:sticky;top:0;}
-nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold;}
-.hero{background:linear-gradient(135deg,#0d6efd,#00c6ff);color:white;text-align:center;padding:80px 20px;}
-.hero h1{font-size:48px}
-.hero p{font-size:20px;margin-top:10px}
-section{max-width:900px;margin:auto;padding:60px 20px;}
-h2{color:#0d6efd;margin-bottom:20px;}
-.card{background:#f4f4f4;padding:20px;border-radius:12px;margin:15px 0;box-shadow:0 3px 10px rgba(0,0,0,0.1);}
-.contact a{display:block;margin:10px 0;color:#0d6efd;text-decoration:none;font-weight:bold;}
-footer{background:#111;color:white;text-align:center;padding:25px;margin-top:40px;}
-</style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>My Portfolio</title>
+
+  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+
+  <style>
+    *{margin:0;padding:0;box-sizing:border-box}
+    body{
+      font-family:Poppins, sans-serif;
+      background:#0f172a;
+      color:#fff;
+      line-height:1.6;
+    }
+    a{color:#38bdf8;text-decoration:none}
+    section{padding:80px 20px;max-width:1100px;margin:auto}
+
+    /* HERO */
+    .hero{
+      display:flex;
+      flex-wrap:wrap;
+      align-items:center;
+      justify-content:space-between;
+      gap:40px;
+    }
+    .hero img{
+      width:260px;
+      border-radius:50%;
+      border:4px solid #38bdf8;
+    }
+    .hero-text h1{font-size:42px}
+    .hero-text h2{color:#38bdf8;margin:10px 0}
+    .btn{
+      display:inline-block;
+      margin-top:20px;
+      padding:12px 25px;
+      background:#38bdf8;
+      border-radius:30px;
+      font-weight:bold;
+      color:#000;
+    }
+
+    /* SKILLS */
+    .skills{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
+      gap:20px;
+      text-align:center;
+    }
+    .skill{
+      background:#1e293b;
+      padding:25px;
+      border-radius:15px;
+    }
+
+    /* PROJECTS */
+    .projects{
+      display:grid;
+      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
+      gap:30px;
+    }
+    .card{
+      background:#1e293b;
+      border-radius:15px;
+      overflow:hidden;
+      transition:.3s;
+    }
+    .card:hover{transform:translateY(-5px)}
+    .card img{width:100%}
+    .card-content{padding:20px}
+
+    /* CONTACT */
+    .contact{text-align:center}
+    footer{text-align:center;padding:30px;color:#aaa}
+  </style>
 </head>
+
 <body>
-<nav>
-  <a href="#about">About</a>
-  <a href="#skills">Skills</a>
-  <a href="#projects">Projects</a>
-  <a href="#contact">Contact</a>
-</nav>
 
+<!-- HERO -->
 <section class="hero">
-  <h1>Bird</h1>
-  <p>Full Stack Developer</p>
-  <p>Web Application • Automation • Industrial Systems</p>
+  <div class="hero-text">
+    <h1>สวัสดีครับ 👋</h1>
+    <h2>ผมคือ Web Developer</h2>
+    <p>พัฒนา Web • Python • Automation • System</p>
+    <a href="#contact" class="btn">ติดต่อฉัน</a>
+  </div>
+
+  <!-- 🔴 เปลี่ยนรูปนี้เป็นรูปตัวเอง -->
+  <img src="https://i.imgur.com/6VBx3io.png">
 </section>
 
-<section id="about">
-  <h2>About Me</h2>
-  <p>นักพัฒนาระบบที่สร้างเครื่องมือให้ธุรกิจทำงานเร็วขึ้นและอัตโนมัติขึ้น</p>
+<!-- ABOUT -->
+<section>
+  <h1>About Me</h1>
+  <p>
+    ผมเป็นนักพัฒนาโปรแกรมที่ชอบสร้างระบบจริงใช้งานจริง
+    เชี่ยวชาญ Web App, Automation และ Python
+  </p>
 </section>
 
-<section id="skills">
-  <h2>Skills</h2>
-  <div class="card"><b>Frontend</b><br>Angular, JavaScript, HTML, CSS</div>
-  <div class="card"><b>Backend</b><br>Python, FastAPI, Node.js</div>
-  <div class="card"><b>Database</b><br>SQL Server, MySQL, PostgreSQL</div>
+<!-- SKILLS -->
+<section>
+  <h1>Skills</h1>
+  <div class="skills">
+    <div class="skill">HTML / CSS / JS</div>
+    <div class="skill">Angular / React</div>
+    <div class="skill">Python / FastAPI</div>
+    <div class="skill">SQL / Database</div>
+  </div>
 </section>
 
-<section id="projects">
-  <h2>Projects</h2>
-  <div class="card"><b>Construction Manpower Planning System</b></div>
-  <div class="card"><b>OCR Box Inspection System</b></div>
-  <div class="card"><b>LINE File Tracking Bot</b></div>
+<!-- PROJECTS -->
+<section>
+  <h1>Projects</h1>
+
+  <div class="projects">
+
+    <div class="card">
+      <img src="https://source.unsplash.com/600x400/?website">
+      <div class="card-content">
+        <h3>Construction Planning System</h3>
+        <p>ระบบวางแผนกำลังคนงานก่อสร้าง</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://source.unsplash.com/600x400/?coding">
+      <div class="card-content">
+        <h3>OCR Automation</h3>
+        <p>ระบบอ่านตัวเลขบนสายพานแบบ Real-time</p>
+      </div>
+    </div>
+
+    <div class="card">
+      <img src="https://source.unsplash.com/600x400/?dashboard">
+      <div class="card-content">
+        <h3>Dashboard Analytics</h3>
+        <p>ระบบวิเคราะห์ข้อมูลและแสดงผล</p>
+      </div>
+    </div>
+
+  </div>
 </section>
 
+<!-- CONTACT -->
 <section id="contact" class="contact">
-  <h2>Contact</h2>
-  <a href="mailto:your@email.com">Email : your@email.com</a>
-  <a href="https://github.com/yourname">GitHub</a>
+  <h1>Contact</h1>
+  <p>Email: yourmail@gmail.com</p>
+  <p>Line / Tel: 08x-xxx-xxxx</p>
 </section>
 
-<footer>© 2026 Bird Portfolio</footer>
+<footer>
+  © 2026 My Portfolio
+</footer>
+
 </body>
 </html>
