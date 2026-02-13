@@ -1,161 +1,171 @@
 <!DOCTYPE html>
 <html lang="th">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
-  <title>My Portfolio</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bird Portfolio</title>
 
-  <link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;500;700&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;600;800&display=swap" rel="stylesheet">
 
-  <style>
-    *{margin:0;padding:0;box-sizing:border-box}
-    body{
-      font-family:Poppins, sans-serif;
-      background:#0f172a;
-      color:#fff;
-      line-height:1.6;
-    }
-    a{color:#38bdf8;text-decoration:none}
-    section{padding:80px 20px;max-width:1100px;margin:auto}
+<style>
+:root{
+  --bg:#0f172a;
+  --card:#1e293b;
+  --text:#fff;
+  --accent:#38bdf8;
+}
+.light{
+  --bg:#f8fafc;
+  --card:#ffffff;
+  --text:#0f172a;
+}
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family:Poppins;background:var(--bg);color:var(--text);scroll-behavior:smooth}
+section{max-width:1100px;margin:auto;padding:90px 20px}
+h1{font-size:38px;margin-bottom:20px}
+.card{background:var(--card);border-radius:16px;padding:25px}
 
-    /* HERO */
-    .hero{
-      display:flex;
-      flex-wrap:wrap;
-      align-items:center;
-      justify-content:space-between;
-      gap:40px;
-    }
-    .hero img{
-      width:260px;
-      border-radius:50%;
-      border:4px solid #38bdf8;
-    }
-    .hero-text h1{font-size:42px}
-    .hero-text h2{color:#38bdf8;margin:10px 0}
-    .btn{
-      display:inline-block;
-      margin-top:20px;
-      padding:12px 25px;
-      background:#38bdf8;
-      border-radius:30px;
-      font-weight:bold;
-      color:#000;
-    }
+/* NAVBAR */
+nav{
+ position:fixed;width:100%;top:0;
+ backdrop-filter:blur(10px);
+ display:flex;justify-content:space-between;
+ padding:15px 30px;z-index:999;
+}
+nav a{margin:0 15px;color:var(--text);text-decoration:none;font-weight:600}
+.toggle{cursor:pointer;font-size:22px}
 
-    /* SKILLS */
-    .skills{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(200px,1fr));
-      gap:20px;
-      text-align:center;
-    }
-    .skill{
-      background:#1e293b;
-      padding:25px;
-      border-radius:15px;
-    }
+/* HERO */
+.hero{display:flex;flex-wrap:wrap;align-items:center;gap:40px}
+.hero img{width:240px;border-radius:50%;border:5px solid var(--accent)}
+.btn{background:var(--accent);padding:12px 25px;border-radius:30px;color:#000;font-weight:700;display:inline-block;margin-top:20px}
 
-    /* PROJECTS */
-    .projects{
-      display:grid;
-      grid-template-columns:repeat(auto-fit,minmax(300px,1fr));
-      gap:30px;
-    }
-    .card{
-      background:#1e293b;
-      border-radius:15px;
-      overflow:hidden;
-      transition:.3s;
-    }
-    .card:hover{transform:translateY(-5px)}
-    .card img{width:100%}
-    .card-content{padding:20px}
+/* SKILLS */
+.grid{display:grid;grid-template-columns:repeat(auto-fit,minmax(220px,1fr));gap:20px}
 
-    /* CONTACT */
-    .contact{text-align:center}
-    footer{text-align:center;padding:30px;color:#aaa}
-  </style>
+/* PROJECT */
+.project img{width:100%;border-radius:12px}
+.project a{display:inline-block;margin-top:10px;margin-right:10px;color:var(--accent)}
+
+/* TIMELINE */
+.timeline{border-left:3px solid var(--accent);padding-left:20px}
+.timeline div{margin-bottom:25px}
+
+/* CONTACT */
+input,textarea{
+ width:100%;padding:12px;margin:8px 0;
+ border-radius:8px;border:none
+}
+footer{text-align:center;padding:30px;color:#aaa}
+</style>
 </head>
 
 <body>
 
+<nav>
+  <b>MyPortfolio</b>
+  <div>
+    <a href="#about">About</a>
+    <a href="#projects">Projects</a>
+    <a href="#contact">Contact</a>
+    <span class="toggle" onclick="toggleMode()">🌙</span>
+  </div>
+</nav>
+
 <!-- HERO -->
 <section class="hero">
-  <div class="hero-text">
-    <h1>สวัสดีครับ 👋</h1>
-    <h2>ผมคือ Web Developer</h2>
-    <p>พัฒนา Web • Python • Automation • System</p>
-    <a href="#contact" class="btn">ติดต่อฉัน</a>
+  <div>
+    <h1>สวัสดีครับ ผม Bird 👨‍💻</h1>
+    <h3>Full-Stack Developer</h3>
+    <p>Web App • Python • Automation • System Design</p>
+    <a class="btn" href="#projects">ดูผลงาน</a>
   </div>
-
-  <!-- 🔴 เปลี่ยนรูปนี้เป็นรูปตัวเอง -->
   <img src="https://i.imgur.com/6VBx3io.png">
 </section>
 
 <!-- ABOUT -->
-<section>
+<section id="about">
   <h1>About Me</h1>
-  <p>
-    ผมเป็นนักพัฒนาโปรแกรมที่ชอบสร้างระบบจริงใช้งานจริง
-    เชี่ยวชาญ Web App, Automation และ Python
-  </p>
+  <div class="card">
+    นักพัฒนาที่ชอบสร้างระบบใช้งานจริง  
+    เชี่ยวชาญ Angular, FastAPI, Database และ Automation
+  </div>
 </section>
 
 <!-- SKILLS -->
 <section>
   <h1>Skills</h1>
-  <div class="skills">
-    <div class="skill">HTML / CSS / JS</div>
-    <div class="skill">Angular / React</div>
-    <div class="skill">Python / FastAPI</div>
-    <div class="skill">SQL / Database</div>
+  <div class="grid">
+    <div class="card">Frontend<br>HTML CSS JS Angular React</div>
+    <div class="card">Backend<br>Python FastAPI Node</div>
+    <div class="card">Database<br>SQL Server MySQL</div>
+    <div class="card">Other<br>OCR Automation API</div>
+  </div>
+</section>
+
+<!-- EXPERIENCE -->
+<section>
+  <h1>Experience</h1>
+  <div class="timeline">
+    <div>
+      <h3>2025 – Present</h3>
+      Freelance Developer
+    </div>
+    <div>
+      <h3>Major Project</h3>
+      Construction Manpower Planning System
+    </div>
   </div>
 </section>
 
 <!-- PROJECTS -->
-<section>
+<section id="projects">
   <h1>Projects</h1>
+  <div class="grid">
 
-  <div class="projects">
-
-    <div class="card">
-      <img src="https://source.unsplash.com/600x400/?website">
-      <div class="card-content">
-        <h3>Construction Planning System</h3>
-        <p>ระบบวางแผนกำลังคนงานก่อสร้าง</p>
-      </div>
-    </div>
-
-    <div class="card">
-      <img src="https://source.unsplash.com/600x400/?coding">
-      <div class="card-content">
-        <h3>OCR Automation</h3>
-        <p>ระบบอ่านตัวเลขบนสายพานแบบ Real-time</p>
-      </div>
-    </div>
-
-    <div class="card">
+    <div class="card project">
       <img src="https://source.unsplash.com/600x400/?dashboard">
-      <div class="card-content">
-        <h3>Dashboard Analytics</h3>
-        <p>ระบบวิเคราะห์ข้อมูลและแสดงผล</p>
-      </div>
+      <h3>Construction Planning System</h3>
+      <p>ระบบวางแผนแรงงานก่อสร้าง</p>
+      <a href="#">GitHub</a>
+      <a href="#">Demo</a>
+    </div>
+
+    <div class="card project">
+      <img src="https://source.unsplash.com/600x400/?ai">
+      <h3>OCR Automation</h3>
+      <p>อ่านตัวเลขสายพานแบบ Real-time</p>
+      <a href="#">GitHub</a>
+    </div>
+
+    <div class="card project">
+      <img src="https://source.unsplash.com/600x400/?analytics">
+      <h3>Analytics Dashboard</h3>
+      <p>Dashboard วิเคราะห์ข้อมูล</p>
+      <a href="#">GitHub</a>
     </div>
 
   </div>
 </section>
 
 <!-- CONTACT -->
-<section id="contact" class="contact">
+<section id="contact">
   <h1>Contact</h1>
-  <p>Email: yourmail@gmail.com</p>
-  <p>Line / Tel: 08x-xxx-xxxx</p>
+  <form action="mailto:yourmail@gmail.com" method="post" enctype="text/plain" class="card">
+    <input placeholder="ชื่อ">
+    <input placeholder="Email">
+    <textarea placeholder="ข้อความ"></textarea>
+    <button class="btn">Send</button>
+  </form>
 </section>
 
-<footer>
-  © 2026 My Portfolio
-</footer>
+<footer>© 2026 Bird Portfolio</footer>
+
+<script>
+function toggleMode(){
+ document.body.classList.toggle("light")
+}
+</script>
 
 </body>
 </html>
