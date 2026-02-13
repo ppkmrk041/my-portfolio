@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="th">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Bird Portfolio</title>
+<style>
+*{margin:0;padding:0;box-sizing:border-box}
+body{font-family: Arial, Helvetica, sans-serif;line-height:1.6;color:#333;}
+nav{background:#111;color:#fff;padding:15px;position:sticky;top:0;}
+nav a{color:white;margin:0 15px;text-decoration:none;font-weight:bold;}
+.hero{background:linear-gradient(135deg,#0d6efd,#00c6ff);color:white;text-align:center;padding:80px 20px;}
+.hero h1{font-size:48px}
+.hero p{font-size:20px;margin-top:10px}
+section{max-width:900px;margin:auto;padding:60px 20px;}
+h2{color:#0d6efd;margin-bottom:20px;}
+.card{background:#f4f4f4;padding:20px;border-radius:12px;margin:15px 0;box-shadow:0 3px 10px rgba(0,0,0,0.1);}
+.contact a{display:block;margin:10px 0;color:#0d6efd;text-decoration:none;font-weight:bold;}
+footer{background:#111;color:white;text-align:center;padding:25px;margin-top:40px;}
+</style>
+</head>
+<body>
+<nav>
+  <a href="#about">About</a>
+  <a href="#skills">Skills</a>
+  <a href="#projects">Projects</a>
+  <a href="#contact">Contact</a>
+</nav>
+
+<section class="hero">
+  <h1>Bird</h1>
+  <p>Full Stack Developer</p>
+  <p>Web Application • Automation • Industrial Systems</p>
+</section>
+
+<section id="about">
+  <h2>About Me</h2>
+  <p>นักพัฒนาระบบที่สร้างเครื่องมือให้ธุรกิจทำงานเร็วขึ้นและอัตโนมัติขึ้น</p>
+</section>
+
+<section id="skills">
+  <h2>Skills</h2>
+  <div class="card"><b>Frontend</b><br>Angular, JavaScript, HTML, CSS</div>
+  <div class="card"><b>Backend</b><br>Python, FastAPI, Node.js</div>
+  <div class="card"><b>Database</b><br>SQL Server, MySQL, PostgreSQL</div>
+</section>
+
+<section id="projects">
+  <h2>Projects</h2>
+  <div class="card"><b>Construction Manpower Planning System</b></div>
+  <div class="card"><b>OCR Box Inspection System</b></div>
+  <div class="card"><b>LINE File Tracking Bot</b></div>
+</section>
+
+<section id="contact" class="contact">
+  <h2>Contact</h2>
+  <a href="mailto:your@email.com">Email : your@email.com</a>
+  <a href="https://github.com/yourname">GitHub</a>
+</section>
+
+<footer>© 2026 Bird Portfolio</footer>
+</body>
+</html>
