@@ -3,557 +3,449 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>แนะนำตัว - ว่าที่ครูมืออาชีพ</title>
-    <link href="https://fonts.googleapis.com/css2?family=Kanit:wght@300;400;600;700&display=swap" rel="stylesheet">
-    <link href="https://unpkg.com/aos@2.3.1/dist/aos.css" rel="stylesheet">
-    <link rel="stylesheet"="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-
+    <title>CONFIDENTIAL: PONGPAT DOSSIER</title>
+    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Black+Ops+One&family=Sarabun:wght@300;600&display=swap" rel="stylesheet">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
+    
     <style>
         :root {
-            --primary-color: #4a90e2; /* สีหลัก (สีฟ้าครู) */
-            --secondary-color: #f39c12; /* สีรอง (สีส้มสดใส) */
-            --dark-bg: #1a1a2e;
-            --light-text: #f5f5f5;
-            --section-bg: #ffffff;
+            --book-w: 420px;
+            --book-h: 600px;
+            --paper: #f4e4bc;
+            --dark: #1a1a1a;
+            --neon: #00ff41; /* Hacker Green */
+            --alert: #ff3333;
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Kanit', sans-serif;
-        }
+        * { box-sizing: border-box; user-select: none; }
 
         body {
-            background-color: #f4f7f6;
-            color: #333;
-            overflow-x: hidden;
-        }
-
-        /* --- Navigation --- */
-        nav {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 1.5rem 5%;
-            position: fixed;
-            width: 100%;
-            top: 0;
-            z-index: 1000;
-            background: rgba(255, 255, 255, 0.9);
-            backdrop-filter: blur(10px);
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary-color);
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: #333;
-            margin-left: 2rem;
-            font-weight: 500;
-            transition: color 0.3s;
-        }
-
-        .nav-links a:hover {
-            color: var(--secondary-color);
-        }
-
-        /* --- Hero Section (ส่วนหัวสุดอลังการ) --- */
-        .hero {
+            margin: 0;
             height: 100vh;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            position: relative;
-            background: linear-gradient(135deg, var(--primary-color) 0%, #6dd5ed 100%);
-            overflow: hidden;
-            padding: 0 5%;
-        }
-
-        /* พื้นหลังเคลื่อนไหว (Bubbles) */
-        .hero .bubbles img {
-            position: absolute;
-            width: 50px;
-            animation: float 8s linear infinite;
-            opacity: 0.2;
-        }
-        .bubbles img:nth-child(1) { left: 10%; width: 80px; animation-duration: 12s; animation-delay: 0s; }
-        .bubbles img:nth-child(2) { left: 30%; width: 40px; animation-duration: 8s; animation-delay: 2s; top: 60%;}
-        .bubbles img:nth-child(3) { left: 70%; width: 100px; animation-duration: 15s; animation-delay: 4s; }
-        .bubbles img:nth-child(4) { left: 90%; width: 60px; animation-duration: 10s; animation-delay: 1s; top: 40%;}
-
-        @keyframes float {
-            0% { transform: translateY(100vh) rotate(0deg); opacity: 0; }
-            50% { opacity: 0.3; }
-            100% { transform: translateY(-10vh) rotate(360deg); opacity: 0; }
-        }
-
-        .hero-content {
-            display: flex;
-            align-items: center;
-            justify-content: space-between;
-            width: 100%;
-            max-width: 1200px;
-            z-index: 2;
-        }
-
-        .hero-text {
-            color: var(--light-text);
-            flex: 1;
-        }
-
-        .hero-text h1 {
-            font-size: 4rem;
-            font-weight: 700;
-            margin-bottom: 1rem;
-            line-height: 1.2;
-        }
-        
-        /* เอฟเฟกต์พิมพ์ข้อความ */
-        .typing-text::after {
-            content: '|';
-            animation: blink 0.7s infinite;
-        }
-        @keyframes blink { 0%, 100% { opacity: 1; } 50% { opacity: 0; } }
-
-        .hero-text h2 {
-            font-size: 2rem;
-            font-weight: 400;
-            margin-bottom: 1.5rem;
-            color: var(--secondary-color);
-        }
-
-        .hero-text p {
-            font-size: 1.2rem;
-            max-width: 600px;
-            margin-bottom: 2.5rem;
-            opacity: 0.9;
-        }
-
-        .btn-glow {
-            padding: 1rem 2.5rem;
-            background: var(--secondary-color);
-            color: white;
-            text-decoration: none;
-            border-radius: 50px;
-            font-weight: 600;
-            box-shadow: 0 0 20px rgba(243, 156, 18, 0.5);
-            transition: all 0.3s ease;
-        }
-
-        .btn-glow:hover {
-            transform: translateY(-3px);
-            box-shadow: 0 0 30px rgba(243, 156, 18, 0.8);
-        }
-
-        /* กรอบรูปโปรไฟล์ */
-        .hero-image-container {
-            flex: 1;
+            background: #0f0f0f url('https://www.transparenttextures.com/patterns/dark-wood.png');
             display: flex;
             justify-content: center;
-            position: relative;
-        }
-
-        .profile-img-wrapper {
-            width: 400px;
-            height: 400px;
-            border-radius: 30% 70% 70% 30% / 30% 30% 70% 70%;
-            overflow: hidden;
-            border: 5px solid rgba(255, 255, 255, 0.5);
-            box-shadow: 0 10px 30px rgba(0,0,0,0.2);
-            animation: morph 8s ease-in-out infinite;
-            position: relative;
-        }
-
-        .profile-img {
-            width: 100%;
-            height: 100%;
-            object-fit: cover;
-        }
-        
-        @keyframes morph {
-            0% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-            50% { border-radius: 30% 60% 70% 40% / 50% 60% 30% 60%; }
-            100% { border-radius: 60% 40% 30% 70% / 60% 30% 70% 40%; }
-        }
-
-        /* --- Sections General Styles --- */
-        section {
-            padding: 6rem 5%;
-            min-height: 80vh;
-        }
-
-        .section-title {
-            text-align: center;
-            font-size: 2.5rem;
-            margin-bottom: 4rem;
-            color: var(--primary-color);
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            position: absolute;
-            width: 80px;
-            height: 4px;
-            background: var(--secondary-color);
-            bottom: -15px;
-            left: 50%;
-            transform: translateX(-50%);
-            border-radius: 2px;
-        }
-
-        /* --- About Section --- */
-        .about-container {
-            display: flex;
-            gap: 4rem;
             align-items: center;
-            max-width: 1200px;
-            margin: 0 auto;
-            background: var(--section-bg);
-            padding: 3rem;
-            border-radius: 20px;
-            box-shadow: 0 10px 30px rgba(0,0,0,0.05);
+            font-family: 'Courier Prime', monospace;
+            overflow: hidden;
+            perspective: 1500px;
         }
 
-        .about-text p {
-            margin-bottom: 1.5rem;
-            line-height: 1.8;
-            font-size: 1.1rem;
-        }
+        /* --- THE DESK (Ambient) --- */
+        .desk-item { position: absolute; pointer-events: none; transition: transform 0.1s; }
+        .coffee { top: 10%; right: 10%; width: 100px; height: 100px; border-radius: 50%; background: #3b2f2f; border: 5px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;}
+        .coffee::after { content: ''; width: 80%; height: 80%; background: #000; border-radius: 50%; opacity: 0.8;}
 
-        .quote-box {
-            background: #f0f8ff;
-            padding: 2rem;
-            border-left: 5px solid var(--secondary-color);
-            border-radius: 0 10px 10px 0;
-            font-style: italic;
-            font-size: 1.2rem;
-            margin: 2rem 0;
-        }
-
-        /* --- Timeline (Education & Experience) --- */
-        .timeline {
-            max-width: 1000px;
-            margin: 0 auto;
+        /* --- BOOK STRUCTURE --- */
+        .book {
+            width: var(--book-w);
+            height: var(--book-h);
             position: relative;
+            transform-style: preserve-3d;
+            transform: rotateX(10deg);
+            transition: transform 1s;
         }
 
-        .timeline::before {
-            content: '';
+        .sheet {
             position: absolute;
-            width: 4px;
-            background: var(--primary-color);
-            top: 0;
-            bottom: 0;
-            left: 50%;
-            margin-left: -2px;
-        }
-
-        .timeline-item {
-            padding: 2rem 3rem;
-            position: relative;
-            width: 50%;
-            background: inherit;
-        }
-
-        .timeline-item.left { left: 0; }
-        .timeline-item.right { left: 50%; }
-
-        .timeline-item::after {
-            content: '';
-            position: absolute;
-            width: 20px;
-            height: 20px;
-            right: -10px;
-            background-color: var(--section-bg);
-            border: 4px solid var(--secondary-color);
-            top: 2.5rem;
-            border-radius: 50%;
-            z-index: 1;
-        }
-        .timeline-item.right::after { left: -10px; }
-
-        .timeline-content {
-            padding: 2rem;
-            background: var(--section-bg);
-            position: relative;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: transform 0.3s;
-        }
-        .timeline-content:hover { transform: translateY(-5px); }
-
-        .timeline-content h3 { color: var(--primary-color); margin-bottom: 0.5rem; }
-        .timeline-content .date { color: var(--secondary-color); font-weight: 600; font-size: 0.9rem; display: block; margin-bottom: 1rem;}
-
-        /* --- Skills Section --- */
-        .skills-grid {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(200px, 1fr));
-            gap: 2rem;
-            max-width: 1200px;
-            margin: 0 auto;
-        }
-
-        .skill-card {
-            background: var(--section-bg);
-            padding: 2.5rem;
-            text-align: center;
-            border-radius: 15px;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.1);
-            transition: all 0.4s ease;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            transform-origin: left;
+            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transform-style: preserve-3d;
             cursor: pointer;
         }
 
-        .skill-card:hover {
-            transform: translateY(-10px) scale(1.05);
-            background: var(--primary-color);
+        .front, .back {
+            position: absolute;
+            top: 0; left: 0;
+            width: 100%; height: 100%;
+            background: var(--paper);
+            backface-visibility: hidden;
+            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
+            border-radius: 5px 15px 15px 5px;
+            overflow: hidden;
         }
 
-        .skill-card:hover h4, .skill-card:hover i { color: white; }
-
-        .skill-card i {
-            font-size: 3rem;
-            color: var(--primary-color);
-            margin-bottom: 1.5rem;
-            transition: color 0.4s;
+        .back {
+            transform: rotateY(180deg);
+            border-radius: 15px 5px 5px 15px;
+            background: #eee;
         }
 
-        .skill-card h4 {
-            font-size: 1.2rem;
-            transition: color 0.4s;
+        /* Z-INDEX MANAGEMENT */
+        #s1 { z-index: 5; }
+        #s2 { z-index: 4; }
+        #s3 { z-index: 3; }
+        #s4 { z-index: 2; }
+        #s5 { z-index: 1; }
+
+        /* --- PAGE 1: COVER (Biometric Lock) --- */
+        .cover {
+            background: #2c3e50;
+            color: white;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            justify-content: center;
+            border: 2px solid #555;
+            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+        }
+        .stamp-top-secret {
+            border: 5px solid var(--alert);
+            color: var(--alert);
+            padding: 10px 20px;
+            font-family: 'Black Ops One', cursive;
+            font-size: 2rem;
+            transform: rotate(-15deg);
+            opacity: 0.8;
+            margin-bottom: 30px;
+            animation: pulse 2s infinite;
+        }
+        .fingerprint-scanner {
+            width: 80px; height: 100px;
+            border: 2px dashed rgba(255,255,255,0.3);
+            border-radius: 10px;
+            margin-top: 20px;
+            position: relative;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            cursor: crosshair;
+            transition: 0.3s;
+        }
+        .fingerprint-scanner:active { border-color: var(--neon); background: rgba(0,255,65,0.1); }
+        .fingerprint-icon { font-size: 3rem; color: rgba(255,255,255,0.2); transition: 0.5s; }
+        .fingerprint-scanner:active .fingerprint-icon { color: var(--neon); transform: scale(1.1); }
+        .scan-line {
+            position: absolute; width: 100%; height: 2px; background: var(--neon); top: 0;
+            display: none; box-shadow: 0 0 10px var(--neon);
+        }
+        .fingerprint-scanner:active .scan-line { display: block; animation: scan 1s linear infinite; }
+
+        /* --- PAGE 2 & 3: PROFILE (Paper Clip & Pull Tab) --- */
+        .paper-clip {
+            position: absolute; top: -10px; right: 20px; width: 30px; height: 60px;
+            border: 5px solid #aaa; border-radius: 20px; border-bottom: none; z-index: 10;
+        }
+        .profile-photo {
+            width: 150px; height: 180px; background: #fff; padding: 10px;
+            transform: rotate(3deg); box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
+            margin: 20px auto;
+        }
+        .pull-tab-container {
+            position: absolute; bottom: 50px; right: -20px;
+            width: 150px; height: 40px; background: var(--alert);
+            color: white; font-weight: bold; line-height: 40px; padding-left: 15px;
+            transition: transform 0.3s; cursor: grab;
+            border-radius: 5px 0 0 5px;
+            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
+        }
+        .pull-tab-container:hover { transform: translateX(-30px); }
+        .hidden-transcript {
+            position: absolute; top: 0; right: 0; width: 0; height: 100%;
+            background: #fff; border-left: 1px solid #ccc;
+            overflow: hidden; transition: width 0.5s; z-index: 5;
+            padding-top: 50px;
+        }
+        .pull-tab-container:active + .hidden-transcript, .hidden-transcript:hover { width: 300px; }
+
+        /* --- PAGE 4: FLASHLIGHT (Dark Room) --- */
+        .dark-room {
+            background: #000; color: var(--neon);
+            position: relative; overflow: hidden;
+            cursor: none; /* Hide default cursor */
+        }
+        .flashlight-beam {
+            position: absolute; width: 150px; height: 150px;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.95) 70%);
+            border-radius: 50%; pointer-events: none;
+            transform: translate(-50%, -50%);
+            mix-blend-mode: hard-light;
+            z-index: 2;
+        }
+        .hidden-code {
+            position: absolute; width: 100%; height: 100%;
+            display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px;
+            opacity: 0.1; /* Almost invisible without light */
+            transition: opacity 0.2s;
+        }
+        .dark-room:hover .hidden-code { opacity: 0.3; } /* Slightly visible on hover */
+        .skill-tag {
+            border: 1px solid var(--neon); padding: 5px 10px; color: var(--neon);
+            font-family: 'Courier Prime'; box-shadow: 0 0 5px var(--neon);
         }
 
-        /* --- Footer --- */
-        footer {
-            background: var(--dark-bg);
-            color: var(--light-text);
-            text-align: center;
-            padding: 2rem;
-            margin-top: 4rem;
+        /* --- PAGE 5: SCRATCH CARD (Canvas) --- */
+        .scratch-container {
+            position: relative; width: 300px; height: 200px; margin: 50px auto;
+            border: 2px solid gold;
+        }
+        .prize-content {
+            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
+            background: white; display: flex; justify-content: center; align-items: center;
+            font-size: 1.5rem; color: #e67e22; font-weight: bold;
+            z-index: 1;
+        }
+        #scratchCanvas {
+            position: absolute; top: 0; left: 0; z-index: 2; cursor: url('https://cdn-icons-png.flaticon.com/32/660/660619.png'), auto;
         }
 
-        /* --- Responsive --- */
-        @media (max-width: 768px) {
-            .nav-links { display: none; }
-            .hero-content { flex-direction: column-reverse; text-align: center; }
-            .hero-text h1 { font-size: 2.5rem; }
-            .hero-image-container { margin-bottom: 2rem; }
-            .profile-img-wrapper { width: 280px; height: 280px; }
-            .about-container { flex-direction: column; }
-            .timeline::before { left: 30px; }
-            .timeline-item { width: 100%; padding-left: 70px; padding-right: 20px; }
-            .timeline-item.right { left: 0; }
-            .timeline-item::after { left: 20px; }
+        /* --- PAGE 6: X-RAY (Hold to reveal) --- */
+        .blueprint {
+            background: #003366; color: white;
+            background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
+            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
+            background-size: 20px 20px;
+            position: relative;
         }
+        .xray-overlay {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 250px; height: 250px; background: rgba(255,255,255,0.9);
+            border-radius: 50%; display: flex; justify-content: center; align-items: center;
+            opacity: 0; transition: 0.3s; pointer-events: none;
+            color: #333; text-align: center;
+        }
+        .blueprint:active .xray-overlay { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
+        .hold-btn {
+            position: absolute; bottom: 20px; width: 100%; text-align: center;
+            animation: blink 1s infinite;
+        }
+
+        /* --- NAVIGATION --- */
+        .nav-arrow {
+            position: absolute; bottom: 10px; right: 10px; font-size: 2rem; color: #555;
+            cursor: pointer; z-index: 100;
+        }
+        .nav-back { right: auto; left: 10px; }
+
+        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        @keyframes pulse { 0% { transform: scale(1) rotate(-15deg); } 50% { transform: scale(1.1) rotate(-15deg); } 100% { transform: scale(1) rotate(-15deg); } }
+        @keyframes blink { 50% { opacity: 0; } }
+
     </style>
 </head>
 <body>
 
-    <nav>
-        <div class="logo" data-aos="fade-down">ครูสมมติ.</div>
-        <div class="nav-links" data-aos="fade-down" data-aos-delay="200">
-            <a href="#home">หน้าแรก</a>
-            <a href="#about">เกี่ยวกับฉัน</a>
-            <a href="#timeline">เส้นทางศึกษา</a>
-            <a href="#skills">ทักษะ</a>
-        </div>
-    </nav>
-
-    <section class="hero" id="home">
-        <div class="bubbles">
-            <img src="https://cdn-icons-png.flaticon.com/512/2928/2928965.png" alt="shape">
-            <img src="https://cdn-icons-png.flaticon.com/512/2928/2928965.png" alt="shape">
-            <img src="https://cdn-icons-png.flaticon.com/512/2928/2928965.png" alt="shape">
-            <img src="https://cdn-icons-png.flaticon.com/512/2928/2928965.png" alt="shape">
-        </div>
-
-        <div class="hero-content">
-            <div class="hero-text">
-                <h2 data-aos="fade-right" data-aos-delay="300">สวัสดีครับ, ผมชื่อ</h2>
-                <h1 data-aos="fade-right" data-aos-delay="500">สมชาย ใจดี (สมมติ)</h1>
-                <h2 style="color: white; font-weight: 600;"><span class="typing-text"></span></h2>
+    <div class="book" id="myBook">
+        
+        <div class="sheet" id="s1" style="z-index: 5;">
+            <div class="front cover">
+                <div class="stamp-top-secret">CONFIDENTIAL</div>
+                <h2>PONGPAT.DOSSIER</h2>
+                <p>CLASSIFIED LEVEL 5</p>
                 
-                <p data-aos="fade-up" data-aos-delay="900">
-                    "นักศึกษาครุศาสตร์ผู้มีความมุ่งมั่นที่จะสร้างแรงบันดาลใจ และพัฒนาศักยภาพของผู้เรียนในยุคดิจิทัล พร้อมนำนวัตกรรมการสอนใหม่ๆ ไปสู่ห้องเรียน"
-                </p>
-                <div data-aos="zoom-in" data-aos-delay="1100">
-                    <a href="#about" class="btn-glow">รู้จักผมให้มากขึ้น</a>
+                <div class="fingerprint-scanner" id="lockBtn" onmousedown="startScan()" onmouseup="stopScan()" onmouseleave="stopScan()">
+                    <i class="fas fa-fingerprint fingerprint-icon"></i>
+                    <div class="scan-line"></div>
                 </div>
+                <p style="font-size: 0.7rem; margin-top: 10px; color: #aaa;">[ HOLD TO UNLOCK ]</p>
             </div>
-            
-            <div class="hero-image-container" data-aos="zoom-in-left" data-aos-delay="600">
-                <div class="profile-img-wrapper">
-                    <img src="https://via.placeholder.com/400x400?text=Your+Image+Here" alt="รูปภาพของฉัน" class="profile-img" id="myImage">
+            <div class="back" style="padding: 20px;">
+                <div class="paper-clip"></div>
+                <h2>SUBJECT PROFILE</h2>
+                <div class="profile-photo">
+                    <img src="117341432.jpeg" onerror="this.src='https://via.placeholder.com/150'" style="width:100%; height:100%; object-fit: cover;">
                 </div>
+                <p><strong>NAME:</strong> Pongpat</p>
+                <p><strong>ROLE:</strong> Future Educator / Dev</p>
+                <p><strong>MISSION:</strong> Education Transformation</p>
+                <div style="margin-top: 20px; border-top: 1px dashed #333; padding-top: 10px;">
+                    "ความลับของผมคือ... ผมไม่ได้แค่สอน แต่ผมสร้างประสบการณ์"
+                </div>
+                <i class="fas fa-arrow-circle-right nav-arrow" onclick="turnPage(1)"></i>
             </div>
         </div>
-    </section>
 
-    <section id="about">
-        <h2 class="section-title" data-aos="fade-up">เกี่ยวกับฉัน</h2>
-        <div class="about-container">
-            <div class="about-text" data-aos="fade-right">
-                <h3 style="color: var(--primary-color); margin-bottom: 1rem;">ความมุ่งมั่นในวิชาชีพครู</h3>
-                <p>
-                    ผมเป็นนักศึกษาชั้นปีที่ 3 คณะครุศาสตร์ สาขาวิชาการสอนภาษาไทย มหาวิทยาลัยราชภัฏสวนสุนันทา (ข้อมูลสมมติ) 
-                    มีความสนใจอย่างลึกซึ้งในการประยุกต์ใช้เทคโนโลยีเพื่อการศึกษา และจิตวิทยาสำหรับเด็ก
-                </p>
-                <p>
-                    เป้าหมายของผมไม่ใช่เพียงการถ่ายทอดความรู้ แต่คือการเป็น "ผู้สร้างพื้นที่ปลอดภัย" ที่นักเรียนทุกคนกล้าที่จะเรียนรู้ กล้าที่จะผิดพลาด และเติบโตในแบบของตัวเอง
-                </p>
-                <div class="quote-box" data-aos="fade-left" data-aos-delay="300">
-                    "การศึกษาไม่ใช่การเติมน้ำให้เต็มถัง แต่คือการจุดไฟให้ลุกโชน" <br>
-                    - William Butler Yeats
+        <div class="sheet" id="s2" style="z-index: 4;">
+            <div class="front" style="padding: 30px;">
+                <h2>EDUCATION LOG</h2>
+                <p>ประวัติการศึกษา</p>
+                <div style="margin-top: 50px;">
+                    <h3>2024 - Present</h3>
+                    <p>Faculty of Education</p>
+                    <p style="color: #666;">Major: Thai Language</p>
                 </div>
+
+                <div class="pull-tab-container">
+                    <i class="fas fa-file-alt"></i> PULL HERE
+                </div>
+                <div class="hidden-transcript">
+                    <h3 style="text-align: center;">OFFICIAL TRANSCRIPT</h3>
+                    <ul style="padding: 20px;">
+                        <li>GPAX: 3.85</li>
+                        <li>Tech Subj: A</li>
+                        <li>Psychology: A</li>
+                        <li>Teaching: A</li>
+                    </ul>
+                </div>
+
+                <i class="fas fa-arrow-circle-left nav-arrow nav-back" onclick="turnBack(1)"></i>
+            </div>
+            <div class="back dark-room" id="darkPage">
+                <div class="flashlight-beam" id="beam"></div>
+                <h2 style="position: absolute; top: 20px; left: 20px; z-index: 3;">SKILL DATABASE</h2>
+                <p style="position: absolute; top: 60px; left: 20px; color: #555; z-index: 3;">(ใช้เมาส์ส่องเพื่อดูข้อมูล)</p>
+                
+                <div class="hidden-code">
+                    <div class="skill-tag">PYTHON</div>
+                    <div class="skill-tag">JAVA</div>
+                    <div class="skill-tag">SQL</div>
+                    <div class="skill-tag">TEACHING</div>
+                    <div class="skill-tag">COMMUNICATION</div>
+                    <div class="skill-tag">CANVA</div>
+                    <div class="skill-tag">ACTIVE LEARNING</div>
+                </div>
+                <i class="fas fa-arrow-circle-right nav-arrow" style="color: var(--neon);" onclick="turnPage(2)"></i>
             </div>
         </div>
-    </section>
 
-    <section id="timeline" style="background: #eef2f5;">
-        <h2 class="section-title" data-aos="fade-up">เส้นทางการศึกษา & ประสบการณ์</h2>
-        <div class="timeline">
+        <div class="sheet" id="s3" style="z-index: 3;">
+            <div class="front blueprint">
+                <div style="padding: 30px;">
+                    <h2 style="border-bottom: 2px solid white;">PROJECT BLUEPRINT</h2>
+                    <div style="margin-top: 50px; text-align: center;">
+                        <i class="fas fa-drafting-compass" style="font-size: 4rem; opacity: 0.5;"></i>
+                        <h3>"The Innovation"</h3>
+                    </div>
+                    <div class="hold-btn">[ HOLD CLICK TO X-RAY ]</div>
+                </div>
+                
+                <div class="xray-overlay">
+                    <div>
+                        <h3>ANALYSIS COMPLETE</h3>
+                        <p>Tech Stack: Python + AI</p>
+                        <p>Status: Success</p>
+                        <p>Impact: High</p>
+                    </div>
+                </div>
+                <i class="fas fa-arrow-circle-left nav-arrow nav-back" style="color: white;" onclick="turnBack(2)"></i>
+            </div>
             
-            <div class="timeline-item left" data-aos="fade-right">
-                <div class="timeline-content">
-                    <span class="date">2564 - ปัจจุบัน</span>
-                    <h3>ปริญญาตรี ครุศาสตรบัณฑิต (ค.บ.)</h3>
-                    <p>มหาวิทยาลัยราชภัฏสวนสุนันทา (เกียรตินิยมอันดับ 1 - สมมติ)</p>
-                    <p>สาขาวิชาภาษาไทย | วิชาโท จิตวิทยาการปรึกษา</p>
+            <div class="back" style="background: #fff;">
+                <div style="padding: 20px; text-align: center;">
+                    <h2>LUCKY ACTIVITIES</h2>
+                    <p>ขูดเพื่อดูภาพกิจกรรมลับ!</p>
+                    
+                    <div class="scratch-container">
+                        <div class="prize-content">
+                            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&w=300" style="width:100%; height:100%; object-fit: cover;">
+                        </div>
+                        <canvas id="scratchCanvas" width="300" height="200"></canvas>
+                    </div>
+                    <p style="font-size: 0.8rem; color: #888;">*Volunteer Camp 2024</p>
                 </div>
+                <i class="fas fa-arrow-circle-right nav-arrow" onclick="turnPage(3)"></i>
             </div>
-
-            <div class="timeline-item right" data-aos="fade-left">
-                <div class="timeline-content">
-                    <span class="date">2566 (ฝึกงาน)</span>
-                    <h3>ผู้ช่วยสอน และสังเกตการสอน</h3>
-                    <p>โรงเรียนสาธิตแห่งมหาวิทยาลัย...</p>
-                    <p>มีส่วนร่วมในการออกแบบแผนการจัดการเรียนรู้แบบ Active Learning และดูแลนักเรียนที่มีความต้องการพิเศษ</p>
-                </div>
-            </div>
-
-            <div class="timeline-item left" data-aos="fade-right">
-                <div class="timeline-content">
-                    <span class="date">2563</span>
-                    <h3>มัธยมศึกษาตอนปลาย</h3>
-                    <p>โรงเรียนมัธยมวัดมกุฏกษัตริย์</p>
-                    <p>แผนการเรียน ศิลป์-ภาษา | ประธานชมรมวรรณศิลป์</p>
-                </div>
-            </div>
-
         </div>
-    </section>
 
-    <section id="skills">
-        <h2 class="section-title" data-aos="fade-up">ทักษะและความสามารถ</h2>
-        <div class="skills-grid">
-            
-            <div class="skill-card" data-aos="flip-left" data-aos-delay="100">
-                <i class="fas fa-chalkboard-teacher"></i>
-                <h4>การจัดการชั้นเรียนเชิงบวก</h4>
+        <div class="sheet" id="s4" style="z-index: 2;">
+            <div class="front" style="background: #34495e; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
+                <h1>MISSION ACCOMPLISHED</h1>
+                <p>Thank you for reviewing.</p>
+                <div style="margin-top: 30px; border: 2px solid white; padding: 20px;">
+                    <h3>CONTACT AGENT</h3>
+                    <p><i class="fas fa-phone"></i> 08x-xxx-xxxx</p>
+                    <p><i class="fas fa-envelope"></i> pongpat@email.com</p>
+                </div>
+                <i class="fas fa-arrow-circle-left nav-arrow nav-back" style="color: white;" onclick="turnBack(3)"></i>
             </div>
-            
-            <div class="skill-card" data-aos="flip-left" data-aos-delay="200">
-                <i class="fas fa-laptop-code"></i>
-                <h4>เทคโนโลยีการศึกษา (EdTech)</h4>
-            </div>
-            
-            <div class="skill-card" data-aos="flip-left" data-aos-delay="300">
-                <i class="fas fa-child"></i>
-                <h4>จิตวิทยาพัฒนาการเด็ก</h4>
-            </div>
-            
-            <div class="skill-card" data-aos="flip-left" data-aos-delay="400">
-                <i class="fas fa-comments"></i>
-                <h4>ทักษะการสื่อสาร & การฟัง</h4>
-            </div>
-            
-            <div class="skill-card" data-aos="flip-left" data-aos-delay="500">
-                <i class="fas fa-book-open"></i>
-                <h4>การออกแบบหลักสูตร</h4>
-            </div>
-
-            <div class="skill-card" data-aos="flip-left" data-aos-delay="600">
-                <i class="fas fa-users"></i>
-                <h4>การทำงานร่วมกับชุมชน</h4>
-            </div>
-
+            <div class="back"></div>
         </div>
-    </section>
 
-    <footer>
-        <p>© 2024 ว่าที่ครูสมชาย ใจดี. Designed for Future Educators.</p>
-    </footer>
+    </div>
 
-    <script src="https://unpkg.com/aos@2.3.1/dist/aos.js"></script>
     <script>
-        // เริ่มต้นใช้งาน AOS (Animate On Scroll)
-        AOS.init({
-            duration: 1000, // ระยะเวลาอนิเมชั่น
-            once: true, // เล่นครั้งเดียวเมื่อเลื่อนผ่าน
-            offset: 100 // เริ่มเล่นก่อนถึง element 100px
-        });
-
-        // สคริปต์สำหรับ Typing Effect (พิมพ์ข้อความอัตโนมัติ)
-        const typingText = document.querySelector('.typing-text');
-        const words = ["ว่าที่ครูยุคใหม่", "นักสร้างแรงบันดาลใจ", "ผู้เรียนรู้ตลอดชีวิต"];
-        let wordIndex = 0;
-        let charIndex = 0;
-        let isDeleting = false;
-
-        function type() {
-            const currentWord = words[wordIndex];
-            
-            if (isDeleting) {
-                typingText.textContent = currentWord.substring(0, charIndex - 1);
-                charIndex--;
-            } else {
-                typingText.textContent = currentWord.substring(0, charIndex + 1);
-                charIndex++;
-            }
-
-            if (!isDeleting && charIndex === currentWord.length) {
-                isDeleting = true;
-                setTimeout(type, 2000); // หยุดรอเมื่อพิมพ์เสร็จ
-            } else if (isDeleting && charIndex === 0) {
-                isDeleting = false;
-                wordIndex = (wordIndex + 1) % words.length;
-                setTimeout(type, 500); // หยุดรอก่อนพิมพ์คำใหม่
-            } else {
-                setTimeout(type, isDeleting ? 100 : 200); // ความเร็วในการพิมพ์/ลบ
-            }
+        // --- 1. PAGE TURNING LOGIC ---
+        function turnPage(pageNum) {
+            const sheet = document.getElementById('s' + pageNum);
+            sheet.style.transform = "rotateY(-180deg)";
+            // จัดลำดับ Z-index ใหม่หลังจากพลิกเสร็จเพื่อให้หน้าต่อไปทำงานได้
+            setTimeout(() => {
+                sheet.style.zIndex = pageNum; // ลดความสำคัญลง
+            }, 500);
         }
 
-        // เริ่มต้น Typing Effect เมื่อโหลดหน้าเว็บ
-        document.addEventListener('DOMContentLoaded', type);
-        
-        // --- Script พิเศษสำหรับโหลดรูปภาพของคุณ ---
-        // เนื่องจากผมไม่มีไฟล์รูปของคุณ ผมจึงใช้ placeholder ไว้ก่อน
-        // โค้ดนี้จะพยายามโหลดรูปของคุณ ถ้าหาไม่เจอจะใช้รูป placeholder แทน
-        // *สำคัญ* เมื่อคุณมีไฟล์ 117341432.jpeg แล้ว โค้ดนี้จะทำงานอัตโนมัติ
-        
-        const imgElement = document.getElementById('myImage');
-        const myImageFileName = "117341432.jpeg";
+        function turnBack(pageNum) {
+            const sheet = document.getElementById('s' + pageNum);
+            sheet.style.transform = "rotateY(0deg)";
+            setTimeout(() => {
+                sheet.style.zIndex = 6 - pageNum; // คืนค่าความสำคัญ
+            }, 500);
+        }
 
-        // สร้าง image object ใหม่เพื่อตรวจสอบว่ามีไฟล์อยู่จริงไหม
-        const imgTester = new Image();
-        imgTester.src = myImageFileName;
+        // --- 2. BIOMETRIC LOCK LOGIC ---
+        let scanTimer;
+        function startScan() {
+            document.querySelector('.fingerprint-scanner').style.borderColor = "#00ff41";
+            scanTimer = setTimeout(() => {
+                // Success Unlock
+                document.getElementById('lockBtn').innerHTML = '<i class="fas fa-check" style="color:#00ff41; font-size:3rem;"></i>';
+                setTimeout(() => turnPage(1), 500); // Auto turn page
+            }, 1500); // Hold for 1.5 seconds
+        }
+        function stopScan() {
+            clearTimeout(scanTimer);
+            document.querySelector('.fingerprint-scanner').style.borderColor = "rgba(255,255,255,0.3)";
+        }
+
+        // --- 3. FLASHLIGHT LOGIC ---
+        const darkPage = document.getElementById('darkPage');
+        const beam = document.getElementById('beam');
         
-        imgTester.onload = function() {
-            // ถ้าโหลดรูปสำเร็จ (มีไฟล์อยู่จริง) ให้เปลี่ยน src ของ imgElement
-            imgElement.src = myImageFileName;
-        };
-        imgTester.onerror = function() {
-             // ถ้าหาไฟล์ไม่เจอ ไม่ต้องทำอะไร (ใช้ placeholder เดิมต่อไป)
-             console.log("ยังไม่พบไฟล์รูปภาพของคุณ กรุณาวางไฟล์ " + myImageFileName + " ในโฟลเดอร์เดียวกัน");
-        };
+        darkPage.addEventListener('mousemove', (e) => {
+            const rect = darkPage.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            beam.style.left = x + 'px';
+            beam.style.top = y + 'px';
+            
+            // Randomly brighten hidden code
+            const tags = document.querySelectorAll('.skill-tag');
+            tags.forEach(tag => {
+                const tagRect = tag.getBoundingClientRect();
+                const dist = Math.hypot(e.clientX - (tagRect.left + tagRect.width/2), e.clientY - (tagRect.top + tagRect.height/2));
+                if(dist < 100) {
+                    tag.style.opacity = 1;
+                    tag.style.boxShadow = "0 0 15px #00ff41";
+                } else {
+                    tag.style.opacity = 0.1;
+                    tag.style.boxShadow = "none";
+                }
+            });
+        });
+
+        // --- 4. SCRATCH CARD LOGIC ---
+        const canvas = document.getElementById('scratchCanvas');
+        const ctx = canvas.getContext('2d');
+        
+        // Fill grey
+        ctx.fillStyle = '#C0C0C0';
+        ctx.fillRect(0, 0, canvas.width, canvas.height);
+        
+        // Text on scratch surface
+        ctx.fillStyle = '#555';
+        ctx.font = '20px Courier';
+        ctx.fillText("SCRATCH ME!", 80, 100);
+
+        let isDrawing = false;
+
+        function scratch(e) {
+            if (!isDrawing) return;
+            const rect = canvas.getBoundingClientRect();
+            const x = e.clientX - rect.left;
+            const y = e.clientY - rect.top;
+            
+            ctx.globalCompositeOperation = 'destination-out';
+            ctx.beginPath();
+            ctx.arc(x, y, 15, 0, Math.PI * 2);
+            ctx.fill();
+        }
+
+        canvas.addEventListener('mousedown', () => isDrawing = true);
+        canvas.addEventListener('mousemove', scratch);
+        canvas.addEventListener('mouseup', () => isDrawing = false);
+        canvas.addEventListener('mouseleave', () => isDrawing = false);
 
     </script>
 </body>
