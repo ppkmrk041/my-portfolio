@@ -3,21 +3,21 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>CONFIDENTIAL: PONGPAT DOSSIER</title>
+    <title>PONGPAT: SECRET FILE (CLICK VER.)</title>
     <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Black+Ops+One&family=Sarabun:wght@300;600&display=swap" rel="stylesheet">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
     
     <style>
         :root {
-            --book-w: 420px;
-            --book-h: 600px;
+            --book-w: 380px; /* ลดขนาดนิดนึงให้พอดีมือถือ */
+            --book-h: 580px;
             --paper: #f4e4bc;
             --dark: #1a1a1a;
-            --neon: #00ff41; /* Hacker Green */
+            --neon: #00ff41; 
             --alert: #ff3333;
         }
 
-        * { box-sizing: border-box; user-select: none; -webkit-user-select: none; }
+        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
 
         body {
             margin: 0;
@@ -31,14 +31,13 @@
             perspective: 1500px;
         }
 
-        /* --- BOOK STRUCTURE --- */
+        /* --- THE FILE FOLDER --- */
         .book {
             width: var(--book-w);
             height: var(--book-h);
             position: relative;
             transform-style: preserve-3d;
-            transform: rotateX(10deg);
-            transition: transform 1s;
+            transition: transform 0.6s;
         }
 
         .sheet {
@@ -46,9 +45,8 @@
             top: 0; left: 0;
             width: 100%; height: 100%;
             transform-origin: left;
-            transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
+            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
             transform-style: preserve-3d;
-            cursor: default;
         }
 
         .front, .back {
@@ -57,437 +55,285 @@
             width: 100%; height: 100%;
             background: var(--paper);
             backface-visibility: hidden;
-            box-shadow: inset 0 0 20px rgba(0,0,0,0.1);
             border-radius: 5px 15px 15px 5px;
             overflow: hidden;
+            box-shadow: inset 0 0 30px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.3);
+            border: 1px solid #d4c4a8;
         }
 
         .back {
             transform: rotateY(180deg);
-            border-radius: 15px 5px 5px 15px;
             background: #eee;
+            border-radius: 15px 5px 5px 15px;
         }
 
-        /* Z-INDEX MANAGEMENT */
+        /* Z-Index Layers */
         #s1 { z-index: 5; }
         #s2 { z-index: 4; }
         #s3 { z-index: 3; }
         #s4 { z-index: 2; }
-        #s5 { z-index: 1; }
 
-        /* --- PAGE 1: COVER (Biometric Lock) --- */
+        /* --- GIMMICK 1: CLICK SCANNER --- */
         .cover {
             background: #2c3e50;
             color: white;
-            display: flex;
-            flex-direction: column;
-            align-items: center;
-            justify-content: center;
-            border: 2px solid #555;
-            box-shadow: 5px 5px 15px rgba(0,0,0,0.5);
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
         }
-        .stamp-top-secret {
-            border: 5px solid var(--alert);
-            color: var(--alert);
-            padding: 10px 20px;
-            font-family: 'Black Ops One', cursive;
-            font-size: 2rem;
-            transform: rotate(-15deg);
-            opacity: 0.8;
-            margin-bottom: 30px;
-            animation: pulse 2s infinite;
-        }
-        
-        /* Updated Fingerprint Scanner */
-        .fingerprint-scanner {
-            width: 100px; height: 120px;
+        .scanner-box {
+            width: 120px; height: 120px;
             border: 2px dashed rgba(255,255,255,0.3);
-            border-radius: 15px;
-            margin-top: 20px;
-            position: relative;
-            display: flex;
-            justify-content: center;
-            align-items: center;
+            border-radius: 10px;
+            display: flex; justify-content: center; align-items: center;
+            margin: 20px 0;
             cursor: pointer;
+            position: relative;
             transition: 0.3s;
-            overflow: hidden;
             background: rgba(0,0,0,0.2);
         }
+        .scanner-box:active { transform: scale(0.95); }
+        .scan-line {
+            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
+            background: var(--neon); box-shadow: 0 0 10px var(--neon);
+            display: none;
+        }
+        .scanner-box.scanning .scan-line {
+            display: block;
+            animation: scanMove 1s infinite linear;
+        }
+        .scanner-box.scanning { border-color: var(--neon); }
+        .fingerprint { font-size: 4rem; color: rgba(255,255,255,0.2); }
+        .scanner-box.success .fingerprint { color: var(--neon); }
+
+        /* --- GIMMICK 2: CLICK SWITCH (NEON) --- */
+        .neon-wall {
+            background: #111; color: #333;
+            position: relative;
+            transition: 0.5s;
+        }
+        .neon-wall.on { color: var(--neon); text-shadow: 0 0 5px var(--neon); }
         
-        .fingerprint-icon { 
-            font-size: 3.5rem; 
-            color: rgba(255,255,255,0.2); 
-            z-index: 2;
+        .switch-btn {
+            position: absolute; top: 20px; right: 20px;
+            width: 60px; height: 30px; background: #333;
+            border-radius: 15px; cursor: pointer; border: 2px solid #555;
+        }
+        .switch-toggle {
+            width: 26px; height: 26px; background: #777;
+            border-radius: 50%; transition: 0.3s;
+            transform: translateX(0);
+        }
+        .switch-btn.active { background: var(--neon); border-color: var(--neon); }
+        .switch-btn.active .switch-toggle { transform: translateX(30px); background: white; }
+
+        .hidden-text { opacity: 0.1; transition: 0.5s; font-size: 1.5rem; margin: 10px; border: 1px solid #333; padding: 5px; display: inline-block;}
+        .neon-wall.on .hidden-text { opacity: 1; border-color: var(--neon); }
+
+        /* --- GIMMICK 3: CLICK TO REVEAL (STICKER) --- */
+        .secret-seal {
+            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
+            width: 250px; height: 150px;
+            background: repeating-linear-gradient(45deg, #c0392b, #c0392b 10px, #e74c3c 10px, #e74c3c 20px);
+            color: white; display: flex; justify-content: center; align-items: center;
+            font-size: 1.2rem; font-weight: bold; text-align: center;
+            cursor: pointer;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
+            transition: 0.5s; z-index: 10;
+        }
+        .secret-seal.removed {
+            transform: translate(-50%, -150%) rotate(-10deg);
+            opacity: 0; pointer-events: none;
+        }
+        .hidden-img {
+            width: 90%; height: 200px; object-fit: cover;
+            border: 5px solid white; transform: rotate(3deg);
+            margin: 50px auto; display: block;
+        }
+
+        /* --- GIMMICK 4: CLICK TAB (EDUCATION) --- */
+        .folder-tab {
+            background: #d35400; color: white; padding: 10px;
+            margin: 20px; cursor: pointer; border-radius: 5px;
+            position: relative; overflow: hidden;
             transition: 0.3s;
         }
+        .folder-tab:hover { background: #e67e22; }
+        .folder-content {
+            max-height: 0; overflow: hidden; transition: 0.5s;
+            background: white; padding: 0 10px; border-left: 3px solid #d35400;
+        }
+        .folder-tab.open + .folder-content { max-height: 200px; padding: 10px; margin-bottom: 20px;}
+        .folder-arrow { float: right; transition: 0.3s; }
+        .folder-tab.open .folder-arrow { transform: rotate(180deg); }
 
-        /* Progress Bar (ตัวโหลด) */
-        .scan-progress {
-            position: absolute;
-            bottom: 0; left: 0;
-            width: 100%;
-            height: 0%; /* เริ่มต้น 0% */
-            background: var(--neon);
-            opacity: 0.3;
-            transition: height 0.1s linear; /* เปลี่ยนความสูง */
-            z-index: 1;
+        /* Nav Buttons */
+        .nav-btn {
+            position: absolute; bottom: 15px; right: 15px;
+            background: transparent; border: 2px solid #555;
+            padding: 5px 15px; border-radius: 20px; cursor: pointer;
+            font-family: 'Courier Prime'; font-weight: bold;
+            transition: 0.2s;
         }
+        .nav-btn:active { background: #333; color: white; }
+        .nav-back { right: auto; left: 15px; }
 
-        /* Active State (ตอนกดค้าง) */
-        .fingerprint-scanner:active .fingerprint-icon, 
-        .fingerprint-scanner.active .fingerprint-icon {
-            color: #fff;
-            transform: scale(0.9);
-        }
-        
-        .fingerprint-scanner:active .scan-progress,
-        .fingerprint-scanner.active .scan-progress {
-            height: 100%; /* วิ่งเต็มหลอด */
-            transition: height 0.8s linear; /* ใช้เวลา 0.8 วิ */
-        }
-
-        /* --- PAGE 2 & 3: PROFILE (Paper Clip & Pull Tab) --- */
-        .paper-clip {
-            position: absolute; top: -10px; right: 20px; width: 30px; height: 60px;
-            border: 5px solid #aaa; border-radius: 20px; border-bottom: none; z-index: 10;
-        }
-        .profile-photo {
-            width: 150px; height: 180px; background: #fff; padding: 10px;
-            transform: rotate(3deg); box-shadow: 2px 2px 5px rgba(0,0,0,0.2);
-            margin: 20px auto;
-        }
-        .pull-tab-container {
-            position: absolute; bottom: 50px; right: -20px;
-            width: 150px; height: 40px; background: var(--alert);
-            color: white; font-weight: bold; line-height: 40px; padding-left: 15px;
-            transition: transform 0.3s; cursor: pointer;
-            border-radius: 5px 0 0 5px;
-            box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
-        }
-        .pull-tab-container:hover { transform: translateX(-30px); }
-        .hidden-transcript {
-            position: absolute; top: 0; right: 0; width: 0; height: 100%;
-            background: #fff; border-left: 1px solid #ccc;
-            overflow: hidden; transition: width 0.5s; z-index: 5;
-            padding-top: 50px;
-        }
-        /* แก้ไขให้ดึงง่ายขึ้น: กดแล้วเปิดค้าง */
-        .pull-tab-container.pulled + .hidden-transcript { width: 300px; }
-
-        /* --- PAGE 4: FLASHLIGHT (Dark Room) --- */
-        .dark-room {
-            background: #000; color: var(--neon);
-            position: relative; overflow: hidden;
-            cursor: none; /* Hide default cursor */
-        }
-        .flashlight-beam {
-            position: absolute; width: 150px; height: 150px;
-            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, rgba(0,0,0,0.95) 70%);
-            border-radius: 50%; pointer-events: none;
-            transform: translate(-50%, -50%);
-            mix-blend-mode: hard-light;
-            z-index: 2;
-        }
-        .hidden-code {
-            position: absolute; width: 100%; height: 100%;
-            display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px;
-            opacity: 0.1;
-            transition: opacity 0.2s;
-        }
-        .dark-room:hover .hidden-code { opacity: 0.3; }
-        .skill-tag {
-            border: 1px solid var(--neon); padding: 5px 10px; color: var(--neon);
-            font-family: 'Courier Prime'; box-shadow: 0 0 5px var(--neon);
-        }
-
-        /* --- PAGE 5: SCRATCH CARD (Canvas) --- */
-        .scratch-container {
-            position: relative; width: 300px; height: 200px; margin: 50px auto;
-            border: 2px solid gold;
-        }
-        .prize-content {
-            position: absolute; top: 0; left: 0; width: 100%; height: 100%;
-            background: white; display: flex; justify-content: center; align-items: center;
-            font-size: 1.5rem; color: #e67e22; font-weight: bold;
-            z-index: 1;
-        }
-        #scratchCanvas {
-            position: absolute; top: 0; left: 0; z-index: 2; cursor: crosshair;
-        }
-
-        /* --- PAGE 6: X-RAY --- */
-        .blueprint {
-            background: #003366; color: white;
-            background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
-            linear-gradient(90deg, rgba(255,255,255,0.1) 1px, transparent 1px);
-            background-size: 20px 20px;
-            position: relative;
-        }
-        .xray-overlay {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 250px; height: 250px; background: rgba(255,255,255,0.9);
-            border-radius: 50%; display: flex; justify-content: center; align-items: center;
-            opacity: 0; transition: 0.3s; pointer-events: none;
-            color: #333; text-align: center;
-        }
-        .blueprint:active .xray-overlay { opacity: 1; transform: translate(-50%, -50%) scale(1.2); }
-        .hold-btn {
-            position: absolute; bottom: 20px; width: 100%; text-align: center;
-            animation: blink 1s infinite;
-        }
-
-        /* --- NAVIGATION --- */
-        .nav-arrow {
-            position: absolute; bottom: 10px; right: 10px; font-size: 2rem; color: #555;
-            cursor: pointer; z-index: 100;
-        }
-        .nav-back { right: auto; left: 10px; }
-
-        /* Fallback Button */
-        .bypass-btn {
-            position: absolute; bottom: 10px; right: 10px;
-            font-size: 0.8rem; color: rgba(255,255,255,0.3);
-            text-decoration: underline; cursor: pointer;
-        }
-
-        @keyframes pulse { 0% { transform: scale(1) rotate(-15deg); } 50% { transform: scale(1.1) rotate(-15deg); } 100% { transform: scale(1) rotate(-15deg); } }
-        @keyframes blink { 50% { opacity: 0; } }
+        @keyframes scanMove { 0% { top: 0; } 100% { top: 100%; } }
 
     </style>
 </head>
 <body>
 
-    <div class="book" id="myBook">
-        
-        <div class="sheet" id="s1" style="z-index: 5;">
-            <div class="front cover">
-                <div class="stamp-top-secret">CONFIDENTIAL</div>
-                <h2>PONGPAT.DOSSIER</h2>
-                <p>CLASSIFIED LEVEL 5</p>
-                
-                <div class="fingerprint-scanner" id="scanner">
-                    <i class="fas fa-fingerprint fingerprint-icon"></i>
-                    <div class="scan-progress"></div> </div>
-                <p style="font-size: 0.7rem; margin-top: 15px; color: #aaa;">[ HOLD TO UNLOCK ]</p>
-                
-                <div class="bypass-btn" onclick="turnPage(1)">Skip Scan >></div>
-            </div>
+    <div class="book">
 
+        <div class="sheet" id="s1">
+            <div class="front cover">
+                <h1 style="font-family: 'Black Ops One'; font-size: 2.5rem; color: var(--alert);">TOP SECRET</h1>
+                <p>BIOMETRIC ACCESS REQUIRED</p>
+                
+                <div class="scanner-box" id="scanner" onclick="startScan()">
+                    <i class="fas fa-fingerprint fingerprint"></i>
+                    <div class="scan-line"></div>
+                </div>
+                
+                <p id="status-text" style="font-size: 0.8rem; color: #aaa;">[ CLICK TO SCAN ]</p>
+            </div>
             <div class="back" style="padding: 20px;">
-                <div class="paper-clip"></div>
-                <h2>SUBJECT PROFILE</h2>
-                <div class="profile-photo">
-                    <img src="117341432.jpeg" onerror="this.src='https://via.placeholder.com/150'" style="width:100%; height:100%; object-fit: cover;">
+                <div style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
+                    <h2>AGENT PROFILE</h2>
                 </div>
-                <p><strong>NAME:</strong> Pongpat</p>
-                <p><strong>ROLE:</strong> Future Educator / Dev</p>
-                <p><strong>MISSION:</strong> Education Transformation</p>
-                <div style="margin-top: 20px; border-top: 1px dashed #333; padding-top: 10px;">
-                    "ความลับของผมคือ... ผมไม่ได้แค่สอน แต่ผมสร้างประสบการณ์"
+                <img src="117341432.jpeg" onerror="this.src='https://via.placeholder.com/150'" style="width: 120px; height: 150px; object-fit: cover; border: 1px solid #333; float: left; margin-right: 15px;">
+                <p><strong>Code:</strong> Pongpat</p>
+                <p><strong>Class:</strong> Educator</p>
+                <p><strong>Status:</strong> Active</p>
+                <div style="clear: both; margin-top: 20px; padding: 10px; background: #fff; border: 1px dashed #333;">
+                    "มุ่งมั่นพัฒนาการเรียนรู้ด้วยนวัตกรรม"
                 </div>
-                <i class="fas fa-arrow-circle-right nav-arrow" onclick="turnPage(1)"></i>
+                <button class="nav-btn" onclick="flip(1)">OPEN FILE >></button>
             </div>
         </div>
 
-        <div class="sheet" id="s2" style="z-index: 4;">
+        <div class="sheet" id="s2">
             <div class="front" style="padding: 30px;">
                 <h2>EDUCATION LOG</h2>
-                <p>ประวัติการศึกษา</p>
-                <div style="margin-top: 50px;">
-                    <h3>2024 - Present</h3>
-                    <p>Faculty of Education</p>
-                    <p style="color: #666;">Major: Thai Language</p>
-                </div>
-
-                <div class="pull-tab-container" onclick="this.classList.toggle('pulled')">
-                    <i class="fas fa-file-alt"></i> PULL HERE
-                </div>
-                <div class="hidden-transcript">
-                    <h3 style="text-align: center;">OFFICIAL TRANSCRIPT</h3>
-                    <ul style="padding: 20px;">
-                        <li>GPAX: 3.85</li>
-                        <li>Tech Subj: A</li>
-                        <li>Psychology: A</li>
-                        <li>Teaching: A</li>
-                    </ul>
-                </div>
-
-                <i class="fas fa-arrow-circle-left nav-arrow nav-back" onclick="turnBack(1)"></i>
-            </div>
-            <div class="back dark-room" id="darkPage">
-                <div class="flashlight-beam" id="beam"></div>
-                <h2 style="position: absolute; top: 20px; left: 20px; z-index: 3;">SKILL DATABASE</h2>
-                <p style="position: absolute; top: 60px; left: 20px; color: #555; z-index: 3;">(ใช้เมาส์ส่องเพื่อดูข้อมูล)</p>
                 
-                <div class="hidden-code">
-                    <div class="skill-tag">PYTHON</div>
-                    <div class="skill-tag">JAVA</div>
-                    <div class="skill-tag">SQL</div>
-                    <div class="skill-tag">TEACHING</div>
-                    <div class="skill-tag">COMMUNICATION</div>
-                    <div class="skill-tag">CANVA</div>
-                    <div class="skill-tag">ACTIVE LEARNING</div>
+                <div class="folder-tab" onclick="toggleTab(this)">
+                    2024 - Present <i class="fas fa-chevron-down folder-arrow"></i>
                 </div>
-                <i class="fas fa-arrow-circle-right nav-arrow" style="color: var(--neon);" onclick="turnPage(2)"></i>
-            </div>
-        </div>
+                <div class="folder-content">
+                    <strong>Bachelor of Education</strong><br>
+                    Major: Thai Language<br>
+                    GPA: 3.85 (Outstanding)
+                </div>
 
-        <div class="sheet" id="s3" style="z-index: 3;">
-            <div class="front blueprint">
-                <div style="padding: 30px;">
-                    <h2 style="border-bottom: 2px solid white;">PROJECT BLUEPRINT</h2>
-                    <div style="margin-top: 50px; text-align: center;">
-                        <i class="fas fa-drafting-compass" style="font-size: 4rem; opacity: 0.5;"></i>
-                        <h3>"The Innovation"</h3>
-                    </div>
-                    <div class="hold-btn">[ HOLD CLICK TO X-RAY ]</div>
+                <div class="folder-tab" onclick="toggleTab(this)">
+                    High School <i class="fas fa-chevron-down folder-arrow"></i>
                 </div>
-                <div class="xray-overlay">
-                    <div>
-                        <h3>ANALYSIS COMPLETE</h3>
-                        <p>Tech Stack: Python + AI</p>
-                        <p>Status: Success</p>
-                        <p>Impact: High</p>
-                    </div>
+                <div class="folder-content">
+                    Science-Math Program<br>
+                    Head of Student Council
                 </div>
-                <i class="fas fa-arrow-circle-left nav-arrow nav-back" style="color: white;" onclick="turnBack(2)"></i>
+
+                <button class="nav-btn nav-back" onclick="flipBack(1)"><< BACK</button>
+                <button class="nav-btn" onclick="flip(2)">NEXT PAGE >></button>
             </div>
             
-            <div class="back" style="background: #fff;">
-                <div style="padding: 20px; text-align: center;">
-                    <h2>LUCKY ACTIVITIES</h2>
-                    <p>ขูดเพื่อดูภาพกิจกรรมลับ!</p>
-                    <div class="scratch-container">
-                        <div class="prize-content">
-                            <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&w=300" style="width:100%; height:100%; object-fit: cover;">
-                        </div>
-                        <canvas id="scratchCanvas" width="300" height="200"></canvas>
+            <div class="back neon-wall" id="neonWall">
+                <div style="padding: 30px;">
+                    <h2>SKILL LAB</h2>
+                    <p style="font-size: 0.8rem;">TURN ON THE LIGHT TO SEE</p>
+                    
+                    <div class="switch-btn" onclick="toggleLight()">
+                        <div class="switch-toggle"></div>
                     </div>
-                    <p style="font-size: 0.8rem; color: #888;">*Volunteer Camp 2024</p>
+
+                    <div style="margin-top: 50px; text-align: center;">
+                        <div class="hidden-text">PYTHON</div>
+                        <div class="hidden-text">JAVA</div>
+                        <div class="hidden-text">SQL</div>
+                        <div class="hidden-text">TEACHING</div>
+                        <div class="hidden-text">CREATIVE</div>
+                    </div>
                 </div>
-                <i class="fas fa-arrow-circle-right nav-arrow" onclick="turnPage(3)"></i>
+                <button class="nav-btn" onclick="flip(3)" style="border-color: #555; color: #555;">NEXT >></button>
             </div>
         </div>
 
-        <div class="sheet" id="s4" style="z-index: 2;">
-            <div class="front" style="background: #34495e; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center;">
-                <h1>MISSION ACCOMPLISHED</h1>
-                <p>Thank you for reviewing.</p>
-                <div style="margin-top: 30px; border: 2px solid white; padding: 20px;">
-                    <h3>CONTACT AGENT</h3>
-                    <p><i class="fas fa-phone"></i> 08x-xxx-xxxx</p>
-                    <p><i class="fas fa-envelope"></i> pongpat@email.com</p>
+        <div class="sheet" id="s3">
+            <div class="front" style="background: white; padding: 20px; text-align: center;">
+                <h2>EVIDENCE #001</h2>
+                <div style="position: relative; width: 100%; height: 250px; margin-top: 30px;">
+                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&w=300" class="hidden-img">
+                    
+                    <div class="secret-seal" onclick="this.classList.add('removed')">
+                        <i class="fas fa-lock"></i>&nbsp;CONFIDENTIAL<br>CLICK TO REMOVE
+                    </div>
                 </div>
-                <i class="fas fa-arrow-circle-left nav-arrow nav-back" style="color: white;" onclick="turnBack(3)"></i>
+                <p>Volunteer Camp 2024</p>
+                <button class="nav-btn nav-back" onclick="flipBack(2)"><< BACK</button>
+                <button class="nav-btn" onclick="flip(4)">CONTACT >></button>
             </div>
-            <div class="back"></div>
+
+            <div class="back" style="background: #2c3e50; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center;">
+                <h1>END OF FILE</h1>
+                <div style="border: 2px solid white; padding: 20px; text-align: center;">
+                    <p><i class="fas fa-phone"></i> 08x-xxx-xxxx</p>
+                    <p><i class="fas fa-envelope"></i> pongpat@email</p>
+                </div>
+                <button class="nav-btn nav-back" style="border-color: white; color: white;" onclick="flipBack(3)"><< REPLAY</button>
+            </div>
         </div>
+
     </div>
 
     <script>
-        // --- 1. PAGE TURNING LOGIC ---
-        function turnPage(pageNum) {
+        // --- 1. SIMPLE FLIP LOGIC ---
+        function flip(pageNum) {
             const sheet = document.getElementById('s' + pageNum);
             sheet.style.transform = "rotateY(-180deg)";
-            setTimeout(() => {
-                sheet.style.zIndex = pageNum;
-            }, 500);
+            setTimeout(() => { sheet.style.zIndex = pageNum; }, 400); // จัดเลเยอร์
         }
 
-        function turnBack(pageNum) {
+        function flipBack(pageNum) {
             const sheet = document.getElementById('s' + pageNum);
             sheet.style.transform = "rotateY(0deg)";
+            setTimeout(() => { sheet.style.zIndex = 10 - pageNum; }, 400);
+        }
+
+        // --- 2. CLICK SCANNER ---
+        function startScan() {
+            const scanner = document.getElementById('scanner');
+            const status = document.getElementById('status-text');
+            
+            if(scanner.classList.contains('success')) return; // สแกนไปแล้วไม่ต้องทำซ้ำ
+
+            scanner.classList.add('scanning');
+            status.innerText = "SCANNING...";
+            status.style.color = "#00ff41";
+
+            // รอ 1.5 วินาที แล้วเปิดอัตโนมัติ
             setTimeout(() => {
-                sheet.style.zIndex = 6 - pageNum;
-            }, 500);
+                scanner.classList.remove('scanning');
+                scanner.classList.add('success');
+                status.innerText = "ACCESS GRANTED";
+                
+                setTimeout(() => {
+                    flip(1); // เปิดหน้าถัดไปเอง
+                }, 800);
+            }, 1500);
         }
 
-        // --- 2. IMPROVED BIOMETRIC LOCK (Mouse & Touch) ---
-        const scanner = document.getElementById('scanner');
-        let scanTimer;
-        let isScanning = false;
-
-        function startUnlock() {
-            if(isScanning) return;
-            isScanning = true;
-            scanner.classList.add('active'); // เริ่มอนิเมชั่นหลอดโหลด
-
-            scanTimer = setTimeout(() => {
-                // Unlock Success!
-                scanner.innerHTML = '<i class="fas fa-check" style="color:#00ff41; font-size:3rem;"></i>';
-                scanner.style.borderColor = "#00ff41";
-                setTimeout(() => turnPage(1), 500);
-            }, 800); // 0.8 วินาที
+        // --- 3. CLICK TAB ---
+        function toggleTab(el) {
+            el.classList.toggle('open');
         }
 
-        function stopUnlock() {
-            isScanning = false;
-            clearTimeout(scanTimer);
-            scanner.classList.remove('active'); // หยุดอนิเมชั่น
+        // --- 4. CLICK LIGHT SWITCH ---
+        function toggleLight() {
+            const wall = document.getElementById('neonWall');
+            const btn = document.querySelector('.switch-btn');
+            wall.classList.toggle('on');
+            btn.classList.toggle('active');
         }
-
-        // รองรับทั้งเมาส์และนิ้วแตะ
-        scanner.addEventListener('mousedown', startUnlock);
-        scanner.addEventListener('touchstart', (e) => { e.preventDefault(); startUnlock(); }); // ป้องกันการเลือก text
-        
-        scanner.addEventListener('mouseup', stopUnlock);
-        scanner.addEventListener('mouseleave', stopUnlock);
-        scanner.addEventListener('touchend', stopUnlock);
-
-        // --- 3. FLASHLIGHT LOGIC ---
-        const darkPage = document.getElementById('darkPage');
-        const beam = document.getElementById('beam');
-        
-        darkPage.addEventListener('mousemove', (e) => {
-            const rect = darkPage.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            beam.style.left = x + 'px';
-            beam.style.top = y + 'px';
-            
-            const tags = document.querySelectorAll('.skill-tag');
-            tags.forEach(tag => {
-                const tagRect = tag.getBoundingClientRect();
-                const dist = Math.hypot(e.clientX - (tagRect.left + tagRect.width/2), e.clientY - (tagRect.top + tagRect.height/2));
-                if(dist < 100) {
-                    tag.style.opacity = 1;
-                    tag.style.boxShadow = "0 0 15px #00ff41";
-                } else {
-                    tag.style.opacity = 0.1;
-                    tag.style.boxShadow = "none";
-                }
-            });
-        });
-
-        // --- 4. SCRATCH CARD LOGIC ---
-        const canvas = document.getElementById('scratchCanvas');
-        const ctx = canvas.getContext('2d');
-        
-        ctx.fillStyle = '#C0C0C0';
-        ctx.fillRect(0, 0, canvas.width, canvas.height);
-        
-        ctx.fillStyle = '#555';
-        ctx.font = '20px Courier';
-        ctx.fillText("SCRATCH ME!", 80, 100);
-
-        let isDrawing = false;
-
-        function scratch(e) {
-            if (!isDrawing) return;
-            const rect = canvas.getBoundingClientRect();
-            const x = e.clientX - rect.left;
-            const y = e.clientY - rect.top;
-            
-            ctx.globalCompositeOperation = 'destination-out';
-            ctx.beginPath();
-            ctx.arc(x, y, 15, 0, Math.PI * 2);
-            ctx.fill();
-        }
-
-        canvas.addEventListener('mousedown', () => isDrawing = true);
-        canvas.addEventListener('mousemove', scratch);
-        canvas.addEventListener('mouseup', () => isDrawing = false);
-        canvas.addEventListener('mouseleave', () => isDrawing = false);
 
     </script>
 </body>
