@@ -17,7 +17,7 @@
             --alert: #ff3333;
         }
 
-        * { box-sizing: border-box; user-select: none; }
+        * { box-sizing: border-box; user-select: none; -webkit-user-select: none; }
 
         body {
             margin: 0;
@@ -30,11 +30,6 @@
             overflow: hidden;
             perspective: 1500px;
         }
-
-        /* --- THE DESK (Ambient) --- */
-        .desk-item { position: absolute; pointer-events: none; transition: transform 0.1s; }
-        .coffee { top: 10%; right: 10%; width: 100px; height: 100px; border-radius: 50%; background: #3b2f2f; border: 5px solid #fff; box-shadow: 0 10px 20px rgba(0,0,0,0.5); display: flex; justify-content: center; align-items: center;}
-        .coffee::after { content: ''; width: 80%; height: 80%; background: #000; border-radius: 50%; opacity: 0.8;}
 
         /* --- BOOK STRUCTURE --- */
         .book {
@@ -53,7 +48,7 @@
             transform-origin: left;
             transition: transform 1.2s cubic-bezier(0.645, 0.045, 0.355, 1);
             transform-style: preserve-3d;
-            cursor: pointer;
+            cursor: default;
         }
 
         .front, .back {
@@ -102,26 +97,54 @@
             margin-bottom: 30px;
             animation: pulse 2s infinite;
         }
+        
+        /* Updated Fingerprint Scanner */
         .fingerprint-scanner {
-            width: 80px; height: 100px;
+            width: 100px; height: 120px;
             border: 2px dashed rgba(255,255,255,0.3);
-            border-radius: 10px;
+            border-radius: 15px;
             margin-top: 20px;
             position: relative;
             display: flex;
             justify-content: center;
             align-items: center;
-            cursor: crosshair;
+            cursor: pointer;
+            transition: 0.3s;
+            overflow: hidden;
+            background: rgba(0,0,0,0.2);
+        }
+        
+        .fingerprint-icon { 
+            font-size: 3.5rem; 
+            color: rgba(255,255,255,0.2); 
+            z-index: 2;
             transition: 0.3s;
         }
-        .fingerprint-scanner:active { border-color: var(--neon); background: rgba(0,255,65,0.1); }
-        .fingerprint-icon { font-size: 3rem; color: rgba(255,255,255,0.2); transition: 0.5s; }
-        .fingerprint-scanner:active .fingerprint-icon { color: var(--neon); transform: scale(1.1); }
-        .scan-line {
-            position: absolute; width: 100%; height: 2px; background: var(--neon); top: 0;
-            display: none; box-shadow: 0 0 10px var(--neon);
+
+        /* Progress Bar (ตัวโหลด) */
+        .scan-progress {
+            position: absolute;
+            bottom: 0; left: 0;
+            width: 100%;
+            height: 0%; /* เริ่มต้น 0% */
+            background: var(--neon);
+            opacity: 0.3;
+            transition: height 0.1s linear; /* เปลี่ยนความสูง */
+            z-index: 1;
         }
-        .fingerprint-scanner:active .scan-line { display: block; animation: scan 1s linear infinite; }
+
+        /* Active State (ตอนกดค้าง) */
+        .fingerprint-scanner:active .fingerprint-icon, 
+        .fingerprint-scanner.active .fingerprint-icon {
+            color: #fff;
+            transform: scale(0.9);
+        }
+        
+        .fingerprint-scanner:active .scan-progress,
+        .fingerprint-scanner.active .scan-progress {
+            height: 100%; /* วิ่งเต็มหลอด */
+            transition: height 0.8s linear; /* ใช้เวลา 0.8 วิ */
+        }
 
         /* --- PAGE 2 & 3: PROFILE (Paper Clip & Pull Tab) --- */
         .paper-clip {
@@ -137,7 +160,7 @@
             position: absolute; bottom: 50px; right: -20px;
             width: 150px; height: 40px; background: var(--alert);
             color: white; font-weight: bold; line-height: 40px; padding-left: 15px;
-            transition: transform 0.3s; cursor: grab;
+            transition: transform 0.3s; cursor: pointer;
             border-radius: 5px 0 0 5px;
             box-shadow: -2px 2px 5px rgba(0,0,0,0.2);
         }
@@ -148,7 +171,8 @@
             overflow: hidden; transition: width 0.5s; z-index: 5;
             padding-top: 50px;
         }
-        .pull-tab-container:active + .hidden-transcript, .hidden-transcript:hover { width: 300px; }
+        /* แก้ไขให้ดึงง่ายขึ้น: กดแล้วเปิดค้าง */
+        .pull-tab-container.pulled + .hidden-transcript { width: 300px; }
 
         /* --- PAGE 4: FLASHLIGHT (Dark Room) --- */
         .dark-room {
@@ -167,10 +191,10 @@
         .hidden-code {
             position: absolute; width: 100%; height: 100%;
             display: flex; flex-wrap: wrap; justify-content: center; align-items: center; gap: 20px;
-            opacity: 0.1; /* Almost invisible without light */
+            opacity: 0.1;
             transition: opacity 0.2s;
         }
-        .dark-room:hover .hidden-code { opacity: 0.3; } /* Slightly visible on hover */
+        .dark-room:hover .hidden-code { opacity: 0.3; }
         .skill-tag {
             border: 1px solid var(--neon); padding: 5px 10px; color: var(--neon);
             font-family: 'Courier Prime'; box-shadow: 0 0 5px var(--neon);
@@ -188,10 +212,10 @@
             z-index: 1;
         }
         #scratchCanvas {
-            position: absolute; top: 0; left: 0; z-index: 2; cursor: url('https://cdn-icons-png.flaticon.com/32/660/660619.png'), auto;
+            position: absolute; top: 0; left: 0; z-index: 2; cursor: crosshair;
         }
 
-        /* --- PAGE 6: X-RAY (Hold to reveal) --- */
+        /* --- PAGE 6: X-RAY --- */
         .blueprint {
             background: #003366; color: white;
             background-image: linear-gradient(rgba(255,255,255,0.1) 1px, transparent 1px),
@@ -219,7 +243,13 @@
         }
         .nav-back { right: auto; left: 10px; }
 
-        @keyframes scan { 0% { top: 0; } 100% { top: 100%; } }
+        /* Fallback Button */
+        .bypass-btn {
+            position: absolute; bottom: 10px; right: 10px;
+            font-size: 0.8rem; color: rgba(255,255,255,0.3);
+            text-decoration: underline; cursor: pointer;
+        }
+
         @keyframes pulse { 0% { transform: scale(1) rotate(-15deg); } 50% { transform: scale(1.1) rotate(-15deg); } 100% { transform: scale(1) rotate(-15deg); } }
         @keyframes blink { 50% { opacity: 0; } }
 
@@ -235,12 +265,14 @@
                 <h2>PONGPAT.DOSSIER</h2>
                 <p>CLASSIFIED LEVEL 5</p>
                 
-                <div class="fingerprint-scanner" id="lockBtn" onmousedown="startScan()" onmouseup="stopScan()" onmouseleave="stopScan()">
+                <div class="fingerprint-scanner" id="scanner">
                     <i class="fas fa-fingerprint fingerprint-icon"></i>
-                    <div class="scan-line"></div>
-                </div>
-                <p style="font-size: 0.7rem; margin-top: 10px; color: #aaa;">[ HOLD TO UNLOCK ]</p>
+                    <div class="scan-progress"></div> </div>
+                <p style="font-size: 0.7rem; margin-top: 15px; color: #aaa;">[ HOLD TO UNLOCK ]</p>
+                
+                <div class="bypass-btn" onclick="turnPage(1)">Skip Scan >></div>
             </div>
+
             <div class="back" style="padding: 20px;">
                 <div class="paper-clip"></div>
                 <h2>SUBJECT PROFILE</h2>
@@ -267,7 +299,7 @@
                     <p style="color: #666;">Major: Thai Language</p>
                 </div>
 
-                <div class="pull-tab-container">
+                <div class="pull-tab-container" onclick="this.classList.toggle('pulled')">
                     <i class="fas fa-file-alt"></i> PULL HERE
                 </div>
                 <div class="hidden-transcript">
@@ -310,7 +342,6 @@
                     </div>
                     <div class="hold-btn">[ HOLD CLICK TO X-RAY ]</div>
                 </div>
-                
                 <div class="xray-overlay">
                     <div>
                         <h3>ANALYSIS COMPLETE</h3>
@@ -326,7 +357,6 @@
                 <div style="padding: 20px; text-align: center;">
                     <h2>LUCKY ACTIVITIES</h2>
                     <p>ขูดเพื่อดูภาพกิจกรรมลับ!</p>
-                    
                     <div class="scratch-container">
                         <div class="prize-content">
                             <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?ixlib=rb-4.0.3&w=300" style="width:100%; height:100%; object-fit: cover;">
@@ -352,7 +382,6 @@
             </div>
             <div class="back"></div>
         </div>
-
     </div>
 
     <script>
@@ -360,9 +389,8 @@
         function turnPage(pageNum) {
             const sheet = document.getElementById('s' + pageNum);
             sheet.style.transform = "rotateY(-180deg)";
-            // จัดลำดับ Z-index ใหม่หลังจากพลิกเสร็จเพื่อให้หน้าต่อไปทำงานได้
             setTimeout(() => {
-                sheet.style.zIndex = pageNum; // ลดความสำคัญลง
+                sheet.style.zIndex = pageNum;
             }, 500);
         }
 
@@ -370,24 +398,41 @@
             const sheet = document.getElementById('s' + pageNum);
             sheet.style.transform = "rotateY(0deg)";
             setTimeout(() => {
-                sheet.style.zIndex = 6 - pageNum; // คืนค่าความสำคัญ
+                sheet.style.zIndex = 6 - pageNum;
             }, 500);
         }
 
-        // --- 2. BIOMETRIC LOCK LOGIC ---
+        // --- 2. IMPROVED BIOMETRIC LOCK (Mouse & Touch) ---
+        const scanner = document.getElementById('scanner');
         let scanTimer;
-        function startScan() {
-            document.querySelector('.fingerprint-scanner').style.borderColor = "#00ff41";
+        let isScanning = false;
+
+        function startUnlock() {
+            if(isScanning) return;
+            isScanning = true;
+            scanner.classList.add('active'); // เริ่มอนิเมชั่นหลอดโหลด
+
             scanTimer = setTimeout(() => {
-                // Success Unlock
-                document.getElementById('lockBtn').innerHTML = '<i class="fas fa-check" style="color:#00ff41; font-size:3rem;"></i>';
-                setTimeout(() => turnPage(1), 500); // Auto turn page
-            }, 1500); // Hold for 1.5 seconds
+                // Unlock Success!
+                scanner.innerHTML = '<i class="fas fa-check" style="color:#00ff41; font-size:3rem;"></i>';
+                scanner.style.borderColor = "#00ff41";
+                setTimeout(() => turnPage(1), 500);
+            }, 800); // 0.8 วินาที
         }
-        function stopScan() {
+
+        function stopUnlock() {
+            isScanning = false;
             clearTimeout(scanTimer);
-            document.querySelector('.fingerprint-scanner').style.borderColor = "rgba(255,255,255,0.3)";
+            scanner.classList.remove('active'); // หยุดอนิเมชั่น
         }
+
+        // รองรับทั้งเมาส์และนิ้วแตะ
+        scanner.addEventListener('mousedown', startUnlock);
+        scanner.addEventListener('touchstart', (e) => { e.preventDefault(); startUnlock(); }); // ป้องกันการเลือก text
+        
+        scanner.addEventListener('mouseup', stopUnlock);
+        scanner.addEventListener('mouseleave', stopUnlock);
+        scanner.addEventListener('touchend', stopUnlock);
 
         // --- 3. FLASHLIGHT LOGIC ---
         const darkPage = document.getElementById('darkPage');
@@ -400,7 +445,6 @@
             beam.style.left = x + 'px';
             beam.style.top = y + 'px';
             
-            // Randomly brighten hidden code
             const tags = document.querySelectorAll('.skill-tag');
             tags.forEach(tag => {
                 const tagRect = tag.getBoundingClientRect();
@@ -419,11 +463,9 @@
         const canvas = document.getElementById('scratchCanvas');
         const ctx = canvas.getContext('2d');
         
-        // Fill grey
         ctx.fillStyle = '#C0C0C0';
         ctx.fillRect(0, 0, canvas.width, canvas.height);
         
-        // Text on scratch surface
         ctx.fillStyle = '#555';
         ctx.font = '20px Courier';
         ctx.fillText("SCRATCH ME!", 80, 100);
