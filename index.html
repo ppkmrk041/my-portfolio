@@ -19,362 +19,139 @@
             --hover-shadow: 0 20px 40px 0 rgba(77, 166, 255, 0.15);
         }
 
-        * {
-            margin: 0;
-            padding: 0;
-            box-sizing: border-box;
-            font-family: 'Prompt', sans-serif;
-        }
-
-        html {
-            scroll-behavior: smooth; /* ทำให้การกดเมนูเลื่อนแบบสมูท */
-        }
-
+        * { margin: 0; padding: 0; box-sizing: border-box; font-family: 'Prompt', sans-serif; }
+        html { scroll-behavior: smooth; }
         body {
             background-color: var(--bg-color);
             background-image: radial-gradient(#4da6ff 0.5px, transparent 0.5px), radial-gradient(#4da6ff 0.5px, #fdfbf7 0.5px);
-            background-size: 40px 40px;
-            background-position: 0 0, 20px 20px;
-            background-attachment: fixed;
-            color: var(--text-main);
-            line-height: 1.7;
-            overflow-x: hidden;
+            background-size: 40px 40px; background-position: 0 0, 20px 20px; background-attachment: fixed;
+            color: var(--text-main); line-height: 1.7; overflow-x: hidden;
         }
 
-        /* Header & Navigation */
+        /* Header */
         header {
-            position: fixed;
-            top: 0;
-            width: 100%;
-            padding: 20px 50px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            background: rgba(253, 251, 247, 0.8);
-            backdrop-filter: blur(12px);
-            -webkit-backdrop-filter: blur(12px);
-            border-bottom: 2px solid var(--accent);
-            z-index: 1000;
-            transition: all 0.4s ease;
+            position: fixed; top: 0; width: 100%; padding: 20px 50px; display: flex; justify-content: space-between; align-items: center;
+            background: rgba(253, 251, 247, 0.8); backdrop-filter: blur(12px); border-bottom: 2px solid var(--accent); z-index: 1000; transition: all 0.4s ease;
         }
+        header.scrolled { padding: 10px 50px; background: rgba(253, 251, 247, 0.95); box-shadow: 0 4px 20px rgba(0,0,0,0.05); }
+        .logo { font-size: 1.5rem; font-weight: 700; color: var(--primary); text-decoration: none; }
+        .logo span { color: var(--accent); }
+        .nav-links { display: flex; gap: 30px; }
+        .nav-links a { text-decoration: none; color: var(--text-main); font-weight: 500; transition: color 0.3s ease; position: relative; }
+        .nav-links a::after { content: ''; position: absolute; width: 0; height: 2px; bottom: -5px; left: 0; background-color: var(--accent); transition: width 0.3s ease; }
+        .nav-links a:hover { color: var(--primary); }
+        .nav-links a:hover::after { width: 100%; }
 
-        header.scrolled {
-            padding: 10px 50px;
-            background: rgba(253, 251, 247, 0.95);
-            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
-        }
-
-        .logo {
-            font-size: 1.5rem;
-            font-weight: 700;
-            color: var(--primary);
-            text-decoration: none;
-        }
-
-        .logo span {
-            color: var(--accent);
-        }
-
-        .nav-links {
-            display: flex;
-            gap: 30px;
-        }
-
-        .nav-links a {
-            text-decoration: none;
-            color: var(--text-main);
-            font-weight: 500;
-            transition: color 0.3s ease;
-            position: relative;
-        }
-
-        .nav-links a::after {
-            content: '';
-            position: absolute;
-            width: 0;
-            height: 2px;
-            bottom: -5px;
-            left: 0;
-            background-color: var(--accent);
-            transition: width 0.3s ease;
-        }
-
-        .nav-links a:hover {
-            color: var(--primary);
-        }
-
-        .nav-links a:hover::after {
-            width: 100%;
-        }
-
-        /* Hero Section & Profile Image */
-        .hero {
-            min-height: 100vh;
-            display: flex;
-            flex-direction: column;
-            justify-content: center;
-            align-items: center;
-            text-align: center;
-            padding: 100px 20px 0; /* เผื่อที่ให้ Navbar */
-            background: linear-gradient(180deg, rgba(253,251,247,0) 0%, rgba(253,251,247,1) 100%);
-        }
-
-        .profile-wrapper {
-            position: relative;
-            margin-bottom: 25px;
-            animation: float 4s ease-in-out infinite; /* เอฟเฟกต์ลอย */
-        }
-
-        .profile-img {
-            width: 180px;
-            height: 180px;
-            object-fit: cover;
-            border-radius: 50%;
-            border: 6px solid white;
-            box-shadow: 0 10px 25px rgba(77, 166, 255, 0.3);
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .profile-wrapper:hover .profile-img {
-            transform: scale(1.05);
-            box-shadow: 0 15px 35px rgba(246, 173, 85, 0.4);
-            border-color: var(--primary);
-        }
-
-        /* Decorative icon on profile */
+        /* Hero */
+        .hero { min-height: 100vh; display: flex; flex-direction: column; justify-content: center; align-items: center; text-align: center; padding: 100px 20px 0; }
+        .profile-wrapper { position: relative; margin-bottom: 25px; animation: float 4s ease-in-out infinite; }
+        .profile-img { width: 180px; height: 180px; object-fit: cover; border-radius: 50%; border: 6px solid white; box-shadow: 0 10px 25px rgba(77, 166, 255, 0.3); transition: transform 0.4s ease, box-shadow 0.4s ease; }
+        .profile-wrapper:hover .profile-img { transform: scale(1.05); box-shadow: 0 15px 35px rgba(246, 173, 85, 0.4); border-color: var(--primary); }
         .profile-badge {
-            position: absolute;
-            bottom: 10px;
-            right: 10px;
-            background: var(--accent);
-            color: white;
-            width: 45px;
-            height: 45px;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 1.2rem;
-            border: 3px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            animation: pulse 2s infinite;
+            position: absolute; bottom: 10px; right: 10px; background: var(--accent); color: white; width: 45px; height: 45px; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 1.2rem; border: 3px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); animation: pulse 2s infinite;
         }
 
-        @keyframes float {
-            0% { transform: translateY(0px); }
-            50% { transform: translateY(-15px); }
-            100% { transform: translateY(0px); }
-        }
+        @keyframes float { 0% { transform: translateY(0px); } 50% { transform: translateY(-15px); } 100% { transform: translateY(0px); } }
+        @keyframes pulse { 0% { transform: scale(1); } 50% { transform: scale(1.1); } 100% { transform: scale(1); } }
 
-        @keyframes pulse {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.1); }
-            100% { transform: scale(1); }
-        }
+        .hero h1 { font-size: 3.5rem; margin-bottom: 10px; font-weight: 700; }
+        .hero h1 span { color: var(--primary); }
+        .typewriter { font-size: 1.4rem; color: var(--accent); min-height: 40px; font-weight: 500; }
 
-        .hero h1 {
-            font-size: 3.5rem;
-            margin-bottom: 10px;
-            font-weight: 700;
-        }
+        /* Sections */
+        section { padding: 80px 20px; max-width: 900px; margin: 0 auto; }
+        .section-title { font-size: 2.2rem; margin-bottom: 40px; text-align: center; position: relative; }
+        .section-title::after { content: ''; display: block; width: 60px; height: 4px; background: var(--accent); margin: 10px auto 0; border-radius: 2px; transition: width 0.4s ease; }
+        section:hover .section-title::after { width: 100px; }
 
-        .hero h1 span {
-            color: var(--primary);
-        }
+        .card { background: var(--card-bg); backdrop-filter: blur(15px); border: 1px solid var(--card-border); box-shadow: var(--glass-shadow); border-radius: 24px; padding: 40px; margin-bottom: 30px; font-size: 1.1rem; transition: transform 0.4s ease, box-shadow 0.4s ease; }
+        .card:hover { transform: translateY(-8px); box-shadow: var(--hover-shadow); }
+        .highlight-quote { font-size: 1.3rem; color: var(--primary); font-style: italic; text-align: center; margin-bottom: 20px; font-weight: 500; padding: 15px; background: rgba(77, 166, 255, 0.05); border-radius: 15px; }
 
-        .typewriter {
-            font-size: 1.4rem;
-            color: var(--accent);
-            min-height: 40px;
-            font-weight: 500;
-        }
-
-        /* Sections & Cards */
-        section {
-            padding: 80px 20px;
-            max-width: 900px;
-            margin: 0 auto;
-        }
-
-        .section-title {
-            font-size: 2.2rem;
-            margin-bottom: 40px;
-            text-align: center;
-            position: relative;
-        }
-
-        .section-title::after {
-            content: '';
-            display: block;
-            width: 60px;
-            height: 4px;
-            background: var(--accent);
-            margin: 10px auto 0;
-            border-radius: 2px;
-            transition: width 0.4s ease;
-        }
-
-        section:hover .section-title::after {
-            width: 100px;
-        }
-
-        .card {
-            background: var(--card-bg);
-            backdrop-filter: blur(15px);
-            -webkit-backdrop-filter: blur(15px);
-            border: 1px solid var(--card-border);
-            box-shadow: var(--glass-shadow);
-            border-radius: 24px;
-            padding: 40px;
-            margin-bottom: 30px;
-            font-size: 1.1rem;
-            transition: transform 0.4s ease, box-shadow 0.4s ease;
-        }
-
-        .card:hover {
-            transform: translateY(-8px);
-            box-shadow: var(--hover-shadow);
-        }
-
-        .highlight-quote {
-            font-size: 1.3rem;
-            color: var(--primary);
-            font-style: italic;
-            text-align: center;
-            margin-bottom: 20px;
-            font-weight: 500;
-            padding: 15px;
-            background: rgba(77, 166, 255, 0.05);
-            border-radius: 15px;
-        }
-
-        /* Skills Tags */
-        .skills-container {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 15px;
-            justify-content: center;
-            margin-top: 20px;
-        }
-
+        /* --- SKILLS & 3D ANIMATION --- */
+        .skills-container { display: flex; flex-wrap: wrap; gap: 15px; justify-content: center; margin-top: 20px; position: relative; z-index: 10; }
         .skill-tag {
-            background: white;
-            color: var(--text-main);
-            padding: 12px 25px;
-            border-radius: 30px;
-            font-weight: 500;
-            font-size: 1rem;
-            border: 2px solid var(--primary);
-            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
-            display: flex;
-            align-items: center;
-            gap: 10px;
-            cursor: default;
+            background: white; color: var(--text-main); padding: 12px 25px; border-radius: 30px; font-weight: 500; font-size: 1rem; border: 2px solid var(--primary); transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1); display: flex; align-items: center; gap: 10px; cursor: pointer; user-select: none;
+        }
+        .skill-tag:hover { transform: translateY(-5px); box-shadow: 0 5px 15px rgba(77, 166, 255, 0.2); }
+        .skill-tag.active { background: var(--primary); color: white; transform: translateY(-5px) scale(1.05); box-shadow: 0 10px 20px rgba(77, 166, 255, 0.4); border-color: transparent; }
+
+        /* Layout กล่องโชว์ข้อมูล 3D */
+        .skill-detail-box {
+            display: none; margin-top: 30px; padding: 30px; background: linear-gradient(135deg, rgba(255,255,255,0.95) 0%, rgba(255,255,255,0.8) 100%);
+            border: 1px solid rgba(255,255,255,0.5); border-radius: 20px; box-shadow: inset 0 0 20px rgba(255,255,255,0.5), 0 15px 35px rgba(0,0,0,0.1);
+            position: relative; z-index: 5;
+        }
+        .skill-detail-box.show-detail { display: block; animation: popInFade 0.6s cubic-bezier(0.175, 0.885, 0.32, 1.275) forwards; }
+        
+        .skill-content-wrapper {
+            display: flex; flex-direction: column; align-items: center; gap: 25px; text-align: center;
+        }
+        @media (min-width: 768px) {
+            .skill-content-wrapper { flex-direction: row; text-align: left; }
         }
 
-        .skill-tag:hover {
-            transform: translateY(-5px) scale(1.05);
-            background: var(--primary);
-            color: white;
-            box-shadow: 0 10px 20px rgba(77, 166, 255, 0.3);
-            border-color: transparent;
+        /* 3D Image CSS */
+        .skill-image-container { perspective: 1000px; flex-shrink: 0; }
+        .skill-image-3d {
+            width: 220px; height: 160px; object-fit: cover; border-radius: 15px;
+            box-shadow: -15px 15px 25px rgba(0,0,0,0.15); border: 4px solid white;
+            transform: rotateY(-15deg) rotateX(10deg);
+            transition: transform 0.5s ease, box-shadow 0.5s ease;
+            animation: float3D 4s ease-in-out infinite;
+        }
+        .skill-image-container:hover .skill-image-3d {
+            transform: rotateY(0deg) rotateX(0deg) scale(1.05);
+            box-shadow: 0 10px 25px rgba(0,0,0,0.2);
+            animation-play-state: paused;
+        }
+        @keyframes float3D {
+            0%, 100% { transform: rotateY(-15deg) rotateX(10deg) translateY(0); }
+            50% { transform: rotateY(-15deg) rotateX(10deg) translateY(-15px); }
         }
 
-        /* Experience Timeline */
-        .experience-timeline {
-            border-left: 3px dashed var(--primary);
-            padding-left: 30px;
-            margin-left: 15px;
+        .skill-text-area { flex-grow: 1; }
+        .skill-icon-large { font-size: 2.5rem; color: var(--accent); margin-bottom: 10px; animation: bounceIcon 2s infinite; display: inline-block; }
+        .skill-detail-title { font-size: 1.6rem; color: var(--primary); font-weight: 600; margin-bottom: 10px; }
+        .skill-detail-text { color: var(--text-muted); font-size: 1.05rem; line-height: 1.6; }
+
+        @keyframes popInFade { 0% { opacity: 0; transform: translateY(30px) scale(0.9); } 100% { opacity: 1; transform: translateY(0) scale(1); } }
+        @keyframes bounceIcon { 0%, 20%, 50%, 80%, 100% { transform: translateY(0); } 40% { transform: translateY(-10px); } 60% { transform: translateY(-5px); } }
+
+        /* --- BALLOON ANIMATION CSS --- */
+        .balloon {
+            position: fixed; bottom: -100px; width: 45px; height: 55px; border-radius: 50% 50% 50% 50% / 40% 40% 60% 60%;
+            z-index: 9999; opacity: 0.85; animation: flyUp linear forwards; pointer-events: none;
+            box-shadow: inset -5px -5px 10px rgba(0,0,0,0.1);
+        }
+        .balloon::before { /* แสงสะท้อนบนลูกโป่ง */
+            content: ''; position: absolute; top: 10px; left: 10px; width: 10px; height: 10px; background: rgba(255,255,255,0.6); border-radius: 50%;
+        }
+        .balloon::after { /* เชือกลูกโป่ง */
+            content: ''; position: absolute; bottom: -20px; left: 50%; transform: translateX(-50%); width: 2px; height: 25px; background: rgba(0,0,0,0.2);
+        }
+        @keyframes flyUp {
+            0% { transform: translateY(0) scale(1) rotate(0deg); opacity: 0.85; }
+            50% { transform: translateY(-50vh) scale(1.1) rotate(10deg); }
+            100% { transform: translateY(-120vh) scale(1) rotate(-10deg); opacity: 0; }
         }
 
-        .timeline-item {
-            position: relative;
-            margin-bottom: 40px;
-            transition: transform 0.3s ease;
-        }
-
-        .timeline-item:hover {
-            transform: translateX(10px);
-        }
-
-        .timeline-item::before {
-            content: '\f19d'; /* Icon หมวกปริญญา */
-            font-family: 'Font Awesome 6 Free';
-            font-weight: 900;
-            position: absolute;
-            left: -48px;
-            top: 0;
-            width: 35px;
-            height: 35px;
-            background: var(--accent);
-            color: white;
-            border-radius: 50%;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            font-size: 0.9rem;
-            border: 4px solid white;
-            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
-            transition: all 0.3s ease;
-        }
-
-        .timeline-item:hover::before {
-            background: var(--primary);
-            transform: scale(1.2);
-        }
-
-        /* Social Links */
-        .social-links {
-            display: flex;
-            justify-content: center;
-            gap: 30px;
-            margin-top: 25px;
-        }
-
-        .social-links a {
-            color: var(--text-main);
-            background: white;
-            width: 60px;
-            height: 60px;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            border-radius: 50%;
-            font-size: 1.8rem;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
-            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-            border: 2px solid transparent;
-        }
-
-        .social-links a:hover {
-            color: white;
-            background: var(--primary);
-            transform: translateY(-10px) rotate(8deg);
-            box-shadow: 0 15px 25px rgba(77, 166, 255, 0.4);
-            border-color: rgba(255,255,255,0.5);
-        }
-
+        /* Timeline & Social Links */
+        .experience-timeline { border-left: 3px dashed var(--primary); padding-left: 30px; margin-left: 15px; }
+        .timeline-item { position: relative; margin-bottom: 40px; transition: transform 0.3s ease; }
+        .timeline-item:hover { transform: translateX(10px); }
+        .timeline-item::before { content: '\f19d'; font-family: 'Font Awesome 6 Free'; font-weight: 900; position: absolute; left: -48px; top: 0; width: 35px; height: 35px; background: var(--accent); color: white; border-radius: 50%; display: flex; justify-content: center; align-items: center; font-size: 0.9rem; border: 4px solid white; box-shadow: 0 4px 10px rgba(0,0,0,0.1); transition: all 0.3s ease; }
+        .timeline-item:hover::before { background: var(--primary); transform: scale(1.2); }
+        .social-links { display: flex; justify-content: center; gap: 30px; margin-top: 25px; }
+        .social-links a { color: var(--text-main); background: white; width: 60px; height: 60px; display: flex; justify-content: center; align-items: center; border-radius: 50%; font-size: 1.8rem; box-shadow: 0 5px 15px rgba(0,0,0,0.05); transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275); border: 2px solid transparent; }
+        .social-links a:hover { color: white; background: var(--primary); transform: translateY(-10px) rotate(8deg); box-shadow: 0 15px 25px rgba(77, 166, 255, 0.4); border-color: rgba(255,255,255,0.5); }
         .social-links a.email:hover { background: #ea4335; box-shadow: 0 15px 25px rgba(234, 67, 53, 0.4); }
         .social-links a.drive:hover { background: #0f9d58; box-shadow: 0 15px 25px rgba(15, 157, 88, 0.4); }
 
-        /* Scroll Animations */
-        .hidden {
-            opacity: 0;
-            transform: translateY(40px);
-            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
-        }
-
-        .show {
-            opacity: 1;
-            transform: translateY(0);
-        }
-
+        .hidden { opacity: 0; transform: translateY(40px); transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1); }
+        .show { opacity: 1; transform: translateY(0); }
         @media (max-width: 768px) {
-            .hero h1 { font-size: 2.5rem; }
-            header { padding: 15px 20px; flex-direction: column; gap: 10px; }
-            header.scrolled { padding: 10px 20px; }
-            .nav-links { gap: 15px; font-size: 0.9rem; }
-            .card { padding: 25px; }
+            .hero h1 { font-size: 2.5rem; } header { padding: 15px 20px; flex-direction: column; gap: 10px; } header.scrolled { padding: 10px 20px; } .nav-links { gap: 15px; font-size: 0.9rem; } .card { padding: 25px; }
         }
     </style>
 </head>
@@ -403,9 +180,7 @@
         <section id="about">
             <h2 class="section-title hidden">แรงบันดาลใจ & เป้าหมาย</h2>
             <div class="card hidden">
-                <div class="highlight-quote">
-                    "ผมเชื่อเสมอว่า ห้องเรียนประถมคือรากฐานที่สำคัญที่สุดของชีวิต"
-                </div>
+                <div class="highlight-quote">"ผมเชื่อเสมอว่า ห้องเรียนประถมคือรากฐานที่สำคัญที่สุดของชีวิต"</div>
                 <p style="text-indent: 2em; text-align: justify;">
                     จุดเริ่มต้นของการอยากเป็นครูของผม คือความสุขที่ได้เห็นเด็กๆ เติบโตและสนุกกับการเรียนรู้สิ่งใหม่ๆ ผมมุ่งมั่นที่จะเป็นครูที่ไม่ใช่แค่คนสอนหนังสือหน้าชั้นเรียน แต่พร้อมเป็น <strong>'พื้นที่ปลอดภัย'</strong> ให้เด็กๆ กล้าคิด กล้าตั้งคำถาม และดึงศักยภาพที่ซ่อนอยู่ในตัวของพวกเขาออกมาให้ได้มากที่สุด ในแบบที่พวกเขาเป็นครับ
                 </p>
@@ -415,14 +190,30 @@
         <section id="skills">
             <h2 class="section-title hidden">ทักษะความสามารถ</h2>
             <div class="card hidden">
-                <p style="text-align: center; margin-bottom: 25px;">พร้อมสร้างสรรค์ห้องเรียนให้เป็นมากกว่าที่เรียนหนังสือ</p>
+                <p style="text-align: center; margin-bottom: 25px;">(คลิกที่ปุ่มเพื่อดูภาพกิจกรรมและรายละเอียด)</p>
+                
                 <div class="skills-container">
-                    <span class="skill-tag"><i class="fas fa-child"></i> จิตวิทยาเด็กประถม</span>
-                    <span class="skill-tag"><i class="fas fa-palette"></i> ออกแบบสื่อการสอน</span>
-                    <span class="skill-tag"><i class="fas fa-gamepad"></i> กิจกรรมนันทนาการ (Active Learning)</span>
-                    <span class="skill-tag"><i class="fas fa-heart"></i> การจัดการชั้นเรียนเชิงบวก</span>
-                    <span class="skill-tag"><i class="fas fa-laptop-code"></i> การผลิตสื่อดิจิทัล</span>
+                    <div class="skill-tag" data-skill="psy"><i class="fas fa-child"></i> จิตวิทยาเด็กประถม</div>
+                    <div class="skill-tag" data-skill="media"><i class="fas fa-palette"></i> ออกแบบสื่อการสอน</div>
+                    <div class="skill-tag" data-skill="active"><i class="fas fa-gamepad"></i> กิจกรรมนันทนาการ</div>
+                    <div class="skill-tag" data-skill="manage"><i class="fas fa-heart"></i> การจัดการชั้นเรียนเชิงบวก</div>
+                    <div class="skill-tag" data-skill="digital"><i class="fas fa-laptop-code"></i> การผลิตสื่อดิจิทัล</div>
                 </div>
+
+                <div id="skill-display" class="skill-detail-box">
+                    <div class="skill-content-wrapper">
+                        <div class="skill-image-container">
+                            <img id="skill-img" src="https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=400&auto=format&fit=crop" alt="Activity Image" class="skill-image-3d">
+                        </div>
+                        
+                        <div class="skill-text-area">
+                            <div id="skill-icon" class="skill-icon-large"><i class="fas fa-star"></i></div>
+                            <h3 id="skill-title" class="skill-detail-title">เลือกทักษะที่สนใจ</h3>
+                            <p id="skill-desc" class="skill-detail-text">คลิกที่ป้ายทักษะด้านบนเพื่อดูว่าผมนำทักษะเหล่านี้ไปปรับใช้ในห้องเรียนประถมศึกษาอย่างไรครับ</p>
+                        </div>
+                    </div>
+                </div>
+
             </div>
         </section>
 
@@ -450,88 +241,141 @@
                 <p style="margin-bottom: 20px; font-size: 1.2rem;">ยินดีที่ได้รู้จักครับ! <br> หากต้องการพูดคุย แลกเปลี่ยนแนวทางการสอน หรือติดต่อเรื่องงาน สามารถทักมาได้เลยครับ</p>
                 <div class="social-links">
                     <a href="https://www.facebook.com/nattawat.jantarakart" class="facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
-                    <a href="#" class="email" title="Email"><i class="fas fa-envelope"></i></a>
-                    <a href="#" class="drive" title="Portfolio Drive"><i class="fab fa-google-drive"></i></a>
+                    <a href="#" class="email" title="Email"><i class="fas fa-envelope"></i></a>                    
                 </div>
             </div>
         </section>
     </main>
 
     <script>
-        // 1. Header Scroll Effect (ย่อขนาด Navbar เมื่อเลื่อนจอ)
+        // 1. Header Scroll
         const header = document.getElementById('navbar');
         window.addEventListener('scroll', () => {
-            if (window.scrollY > 50) {
-                header.classList.add('scrolled');
-            } else {
-                header.classList.remove('scrolled');
-            }
+            if (window.scrollY > 50) { header.classList.add('scrolled'); } else { header.classList.remove('scrolled'); }
         });
 
-        // 2. Scroll Animation Logic (เปิดเผยเนื้อหาเมื่อเลื่อนมาถึง)
-        const observerOptions = {
-            root: null,
-            rootMargin: '0px',
-            threshold: 0.15
-        };
-
+        // 2. Scroll Animation
+        const observerOptions = { root: null, rootMargin: '0px', threshold: 0.15 };
         const observer = new IntersectionObserver((entries, observer) => {
             entries.forEach((entry, index) => {
                 if (entry.isIntersecting) {
-                    // หน่วงเวลาให้โผล่มาทีละอันถ้าระยะใกล้กัน
-                    setTimeout(() => {
-                        entry.target.classList.add('show');
-                    }, index * 100); 
-                    observer.unobserve(entry.target);
+                    setTimeout(() => { entry.target.classList.add('show'); }, index * 100); observer.unobserve(entry.target);
                 }
             });
         }, observerOptions);
+        document.querySelectorAll('.hidden').forEach((element) => { observer.observe(element); });
 
-        document.querySelectorAll('.hidden').forEach((element) => {
-            observer.observe(element);
-        });
-
-        // 3. Typing Effect Logic (พิมพ์ดีดอัตโนมัติ)
-        const texts = [
-            "นักศึกษาวิชาเอกการประถมศึกษา",
-            "ผู้สร้างแรงบันดาลใจให้เด็กๆ",
-            "พร้อมเป็นเพื่อนร่วมเรียนรู้"
-        ];
-        let count = 0;
-        let index = 0;
-        let currentText = "";
-        let letter = "";
-        let isDeleting = false;
-        
+        // 3. Typing Effect
+        const texts = ["นักศึกษาวิชาเอกการประถมศึกษา", "ผู้สร้างแรงบันดาลใจให้เด็กๆ", "พร้อมเป็นเพื่อนร่วมเรียนรู้"];
+        let count = 0, index = 0, currentText = "", letter = "", isDeleting = false;
         function type() {
-            if (count === texts.length) {
-                count = 0;
-            }
+            if (count === texts.length) { count = 0; }
             currentText = texts[count];
-
-            if (isDeleting) {
-                letter = currentText.slice(0, --index);
-            } else {
-                letter = currentText.slice(0, ++index);
-            }
-
+            if (isDeleting) { letter = currentText.slice(0, --index); } else { letter = currentText.slice(0, ++index); }
             document.getElementById('typewriter-text').textContent = letter + '|';
-
             let typeTimeout = isDeleting ? 40 : 100;
-
             if (!isDeleting && letter.length === currentText.length) {
-                typeTimeout = 2500; 
-                isDeleting = true;
+                typeTimeout = 2500; isDeleting = true;
             } else if (isDeleting && letter.length === 0) {
-                isDeleting = false;
-                count++;
-                typeTimeout = 500;
+                isDeleting = false; count++; typeTimeout = 500;
             }
-
             setTimeout(type, typeTimeout);
         }
-
         setTimeout(type, 1000);
+
+        // --- 4. Interactive Skills & Balloons Logic ---
+
+        // ฟังก์ชันสร้างลูกโป่งลอย
+        function createBalloons() {
+            // โทนสีลูกโป่ง (ฟ้า, ส้ม, ชมพู, เขียว, เหลือง)
+            const colors = ['#4da6ff', '#f6ad55', '#ff7eb3', '#48bb78', '#ecc94b'];
+            
+            // สร้างลูกโป่ง 6-8 ลูกต่อการคลิก
+            const balloonCount = Math.floor(Math.random() * 3) + 6; 
+            
+            for(let i=0; i<balloonCount; i++) {
+                const balloon = document.createElement('div');
+                balloon.className = 'balloon';
+                balloon.style.backgroundColor = colors[Math.floor(Math.random() * colors.length)];
+                
+                // สุ่มตำแหน่งแกน X และความเร็วในการลอย
+                balloon.style.left = (Math.random() * 90) + 5 + 'vw';
+                balloon.style.animationDuration = (Math.random() * 3 + 4) + 's'; // 4-7 วินาที
+                
+                document.body.appendChild(balloon);
+                
+                // ลบลูกโป่งออกจากระบบเมื่อลอยพ้นจอไปแล้ว (ลดการกินแรม)
+                setTimeout(() => { balloon.remove(); }, 7000);
+            }
+        }
+
+        // ข้อมูลของแต่ละทักษะ พร้อมลิงก์รูปภาพ (คุณสามารถเปลี่ยนลิงก์รูปในนี้ได้)
+        const skillDetails = {
+            'psy': {
+                icon: '<i class="fas fa-child"></i>',
+                title: 'จิตวิทยาเด็กประถม',
+                desc: 'เข้าใจพัฒนาการและธรรมชาติของเด็กวัยเรียน พร้อมรับฟังและสะท้อนความรู้สึก เพื่อสร้างพื้นที่ที่ปลอดภัยให้เขากล้าเป็นตัวของตัวเอง',
+                image: 'https://images.unsplash.com/photo-1503676260728-1c00da094a0b?q=80&w=400&auto=format&fit=crop'
+            },
+            'media': {
+                icon: '<i class="fas fa-palette"></i>',
+                title: 'ออกแบบสื่อการสอนทำมือ',
+                desc: 'สร้างสรรค์สื่อการสอน บัตรคำ และบอร์ดเกมที่ดึงดูดความสนใจ ช่วยเปลี่ยนเนื้อหาที่ซับซ้อนให้กลายเป็นเรื่องสนุกและจับต้องได้',
+                image: 'https://images.unsplash.com/photo-1513364776144-60967b0f800f?q=80&w=400&auto=format&fit=crop'
+            },
+            'active': {
+                icon: '<i class="fas fa-gamepad"></i>',
+                title: 'กิจกรรมนันทนาการ',
+                desc: 'สอดแทรกความรู้ผ่านเกม เพลง และท่าเต้น กระตุ้นให้ผู้เรียนตื่นตัว มีส่วนร่วม และได้เรียนรู้ผ่านการลงมือทำด้วยตนเอง',
+                image: 'https://images.unsplash.com/photo-1502086223501-7ea6ecd79368?q=80&w=400&auto=format&fit=crop'
+            },
+            'manage': {
+                icon: '<i class="fas fa-heart"></i>',
+                title: 'การจัดการชั้นเรียนเชิงบวก',
+                desc: 'เน้นการใช้เหตุผล กฎกติกาที่ตกลงร่วมกัน และการเสริมแรงทางบวก แทนการลงโทษด้วยอารมณ์ เพื่อปลูกฝังวินัยในตนเองให้เด็กๆ',
+                image: 'https://images.unsplash.com/photo-1509062522246-3755977927d7?q=80&w=400&auto=format&fit=crop'
+            },
+            'digital': {
+                icon: '<i class="fas fa-laptop-code"></i>',
+                title: 'การผลิตสื่อดิจิทัล',
+                desc: 'ประยุกต์ใช้เทคโนโลยีต่างๆ เพื่อสร้างสไลด์ อินโฟกราฟิก และคลิปวิดีโอประกอบการสอนที่ทันสมัยและดึงดูดใจผู้เรียนยุคใหม่',
+                image: 'https://images.unsplash.com/photo-1580894732444-8ecbef79bd14?q=80&w=400&auto=format&fit=crop'
+            }
+        };
+
+        const skillTags = document.querySelectorAll('.skill-tag');
+        const displayBox = document.getElementById('skill-display');
+        const displayIcon = document.getElementById('skill-icon');
+        const displayTitle = document.getElementById('skill-title');
+        const displayDesc = document.getElementById('skill-desc');
+        const displayImg = document.getElementById('skill-img');
+
+        skillTags.forEach(tag => {
+            tag.addEventListener('click', function() {
+                // ถ้ากดปุ่มเดิมซ้ำ ไม่ต้องทำอะไร (กันลูกโป่งเด้งรัวๆ)
+                if(this.classList.contains('active')) return;
+
+                skillTags.forEach(t => t.classList.remove('active'));
+                this.classList.add('active');
+
+                // ปล่อยลูกโป่ง!
+                createBalloons();
+
+                const skillKey = this.getAttribute('data-skill');
+                const data = skillDetails[skillKey];
+
+                displayBox.classList.remove('show-detail');
+                
+                setTimeout(() => {
+                    displayIcon.innerHTML = data.icon;
+                    displayTitle.textContent = data.title;
+                    displayDesc.textContent = data.desc;
+                    // เปลี่ยนรูปภาพ
+                    displayImg.src = data.image;
+                    displayBox.classList.add('show-detail');
+                }, 50);
+            });
+        });
     </script>
 </body>
 </html>
