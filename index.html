@@ -3,338 +3,535 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>PONGPAT: SECRET FILE (CLICK VER.)</title>
-    <link href="https://fonts.googleapis.com/css2?family=Courier+Prime:wght@400;700&family=Black+Ops+One&family=Sarabun:wght@300;600&display=swap" rel="stylesheet">
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css">
-    
+    <title>Nattawat J. - Elementary Education Portfolio</title>
+    <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css2?family=Prompt:wght@300;400;500;600;700&display=swap" rel="stylesheet">
     <style>
         :root {
-            --book-w: 380px; /* ลดขนาดนิดนึงให้พอดีมือถือ */
-            --book-h: 580px;
-            --paper: #f4e4bc;
-            --dark: #1a1a1a;
-            --neon: #00ff41; 
-            --alert: #ff3333;
+            --bg-color: #fdfbf7; 
+            --text-main: #2d3748;
+            --text-muted: #718096;
+            --primary: #4da6ff; 
+            --accent: #f6ad55; 
+            --card-bg: rgba(255, 255, 255, 0.85);
+            --card-border: rgba(77, 166, 255, 0.2);
+            --glass-shadow: 0 10px 30px 0 rgba(0, 0, 0, 0.05);
+            --hover-shadow: 0 20px 40px 0 rgba(77, 166, 255, 0.15);
         }
 
-        * { box-sizing: border-box; user-select: none; -webkit-tap-highlight-color: transparent; }
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Prompt', sans-serif;
+        }
+
+        html {
+            scroll-behavior: smooth; /* ทำให้การกดเมนูเลื่อนแบบสมูท */
+        }
 
         body {
-            margin: 0;
-            height: 100vh;
-            background: #0f0f0f url('https://www.transparenttextures.com/patterns/dark-wood.png');
+            background-color: var(--bg-color);
+            background-image: radial-gradient(#4da6ff 0.5px, transparent 0.5px), radial-gradient(#4da6ff 0.5px, #fdfbf7 0.5px);
+            background-size: 40px 40px;
+            background-position: 0 0, 20px 20px;
+            background-attachment: fixed;
+            color: var(--text-main);
+            line-height: 1.7;
+            overflow-x: hidden;
+        }
+
+        /* Header & Navigation */
+        header {
+            position: fixed;
+            top: 0;
+            width: 100%;
+            padding: 20px 50px;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            background: rgba(253, 251, 247, 0.8);
+            backdrop-filter: blur(12px);
+            -webkit-backdrop-filter: blur(12px);
+            border-bottom: 2px solid var(--accent);
+            z-index: 1000;
+            transition: all 0.4s ease;
+        }
+
+        header.scrolled {
+            padding: 10px 50px;
+            background: rgba(253, 251, 247, 0.95);
+            box-shadow: 0 4px 20px rgba(0,0,0,0.05);
+        }
+
+        .logo {
+            font-size: 1.5rem;
+            font-weight: 700;
+            color: var(--primary);
+            text-decoration: none;
+        }
+
+        .logo span {
+            color: var(--accent);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 30px;
+        }
+
+        .nav-links a {
+            text-decoration: none;
+            color: var(--text-main);
+            font-weight: 500;
+            transition: color 0.3s ease;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 2px;
+            bottom: -5px;
+            left: 0;
+            background-color: var(--accent);
+            transition: width 0.3s ease;
+        }
+
+        .nav-links a:hover {
+            color: var(--primary);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        /* Hero Section & Profile Image */
+        .hero {
+            min-height: 100vh;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            text-align: center;
+            padding: 100px 20px 0; /* เผื่อที่ให้ Navbar */
+            background: linear-gradient(180deg, rgba(253,251,247,0) 0%, rgba(253,251,247,1) 100%);
+        }
+
+        .profile-wrapper {
+            position: relative;
+            margin-bottom: 25px;
+            animation: float 4s ease-in-out infinite; /* เอฟเฟกต์ลอย */
+        }
+
+        .profile-img {
+            width: 180px;
+            height: 180px;
+            object-fit: cover;
+            border-radius: 50%;
+            border: 6px solid white;
+            box-shadow: 0 10px 25px rgba(77, 166, 255, 0.3);
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .profile-wrapper:hover .profile-img {
+            transform: scale(1.05);
+            box-shadow: 0 15px 35px rgba(246, 173, 85, 0.4);
+            border-color: var(--primary);
+        }
+
+        /* Decorative icon on profile */
+        .profile-badge {
+            position: absolute;
+            bottom: 10px;
+            right: 10px;
+            background: var(--accent);
+            color: white;
+            width: 45px;
+            height: 45px;
+            border-radius: 50%;
             display: flex;
             justify-content: center;
             align-items: center;
-            font-family: 'Courier Prime', monospace;
-            overflow: hidden;
-            perspective: 1500px;
+            font-size: 1.2rem;
+            border: 3px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            animation: pulse 2s infinite;
         }
 
-        /* --- THE FILE FOLDER --- */
-        .book {
-            width: var(--book-w);
-            height: var(--book-h);
+        @keyframes float {
+            0% { transform: translateY(0px); }
+            50% { transform: translateY(-15px); }
+            100% { transform: translateY(0px); }
+        }
+
+        @keyframes pulse {
+            0% { transform: scale(1); }
+            50% { transform: scale(1.1); }
+            100% { transform: scale(1); }
+        }
+
+        .hero h1 {
+            font-size: 3.5rem;
+            margin-bottom: 10px;
+            font-weight: 700;
+        }
+
+        .hero h1 span {
+            color: var(--primary);
+        }
+
+        .typewriter {
+            font-size: 1.4rem;
+            color: var(--accent);
+            min-height: 40px;
+            font-weight: 500;
+        }
+
+        /* Sections & Cards */
+        section {
+            padding: 80px 20px;
+            max-width: 900px;
+            margin: 0 auto;
+        }
+
+        .section-title {
+            font-size: 2.2rem;
+            margin-bottom: 40px;
+            text-align: center;
             position: relative;
-            transform-style: preserve-3d;
-            transition: transform 0.6s;
         }
 
-        .sheet {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            transform-origin: left;
-            transition: transform 0.8s cubic-bezier(0.645, 0.045, 0.355, 1);
-            transform-style: preserve-3d;
-        }
-
-        .front, .back {
-            position: absolute;
-            top: 0; left: 0;
-            width: 100%; height: 100%;
-            background: var(--paper);
-            backface-visibility: hidden;
-            border-radius: 5px 15px 15px 5px;
-            overflow: hidden;
-            box-shadow: inset 0 0 30px rgba(0,0,0,0.1), 5px 5px 15px rgba(0,0,0,0.3);
-            border: 1px solid #d4c4a8;
-        }
-
-        .back {
-            transform: rotateY(180deg);
-            background: #eee;
-            border-radius: 15px 5px 5px 15px;
-        }
-
-        /* Z-Index Layers */
-        #s1 { z-index: 5; }
-        #s2 { z-index: 4; }
-        #s3 { z-index: 3; }
-        #s4 { z-index: 2; }
-
-        /* --- GIMMICK 1: CLICK SCANNER --- */
-        .cover {
-            background: #2c3e50;
-            color: white;
-            display: flex; flex-direction: column;
-            align-items: center; justify-content: center;
-        }
-        .scanner-box {
-            width: 120px; height: 120px;
-            border: 2px dashed rgba(255,255,255,0.3);
-            border-radius: 10px;
-            display: flex; justify-content: center; align-items: center;
-            margin: 20px 0;
-            cursor: pointer;
-            position: relative;
-            transition: 0.3s;
-            background: rgba(0,0,0,0.2);
-        }
-        .scanner-box:active { transform: scale(0.95); }
-        .scan-line {
-            position: absolute; top: 0; left: 0; width: 100%; height: 2px;
-            background: var(--neon); box-shadow: 0 0 10px var(--neon);
-            display: none;
-        }
-        .scanner-box.scanning .scan-line {
+        .section-title::after {
+            content: '';
             display: block;
-            animation: scanMove 1s infinite linear;
+            width: 60px;
+            height: 4px;
+            background: var(--accent);
+            margin: 10px auto 0;
+            border-radius: 2px;
+            transition: width 0.4s ease;
         }
-        .scanner-box.scanning { border-color: var(--neon); }
-        .fingerprint { font-size: 4rem; color: rgba(255,255,255,0.2); }
-        .scanner-box.success .fingerprint { color: var(--neon); }
 
-        /* --- GIMMICK 2: CLICK SWITCH (NEON) --- */
-        .neon-wall {
-            background: #111; color: #333;
+        section:hover .section-title::after {
+            width: 100px;
+        }
+
+        .card {
+            background: var(--card-bg);
+            backdrop-filter: blur(15px);
+            -webkit-backdrop-filter: blur(15px);
+            border: 1px solid var(--card-border);
+            box-shadow: var(--glass-shadow);
+            border-radius: 24px;
+            padding: 40px;
+            margin-bottom: 30px;
+            font-size: 1.1rem;
+            transition: transform 0.4s ease, box-shadow 0.4s ease;
+        }
+
+        .card:hover {
+            transform: translateY(-8px);
+            box-shadow: var(--hover-shadow);
+        }
+
+        .highlight-quote {
+            font-size: 1.3rem;
+            color: var(--primary);
+            font-style: italic;
+            text-align: center;
+            margin-bottom: 20px;
+            font-weight: 500;
+            padding: 15px;
+            background: rgba(77, 166, 255, 0.05);
+            border-radius: 15px;
+        }
+
+        /* Skills Tags */
+        .skills-container {
+            display: flex;
+            flex-wrap: wrap;
+            gap: 15px;
+            justify-content: center;
+            margin-top: 20px;
+        }
+
+        .skill-tag {
+            background: white;
+            color: var(--text-main);
+            padding: 12px 25px;
+            border-radius: 30px;
+            font-weight: 500;
+            font-size: 1rem;
+            border: 2px solid var(--primary);
+            transition: all 0.3s cubic-bezier(0.25, 0.8, 0.25, 1);
+            display: flex;
+            align-items: center;
+            gap: 10px;
+            cursor: default;
+        }
+
+        .skill-tag:hover {
+            transform: translateY(-5px) scale(1.05);
+            background: var(--primary);
+            color: white;
+            box-shadow: 0 10px 20px rgba(77, 166, 255, 0.3);
+            border-color: transparent;
+        }
+
+        /* Experience Timeline */
+        .experience-timeline {
+            border-left: 3px dashed var(--primary);
+            padding-left: 30px;
+            margin-left: 15px;
+        }
+
+        .timeline-item {
             position: relative;
-            transition: 0.5s;
-        }
-        .neon-wall.on { color: var(--neon); text-shadow: 0 0 5px var(--neon); }
-        
-        .switch-btn {
-            position: absolute; top: 20px; right: 20px;
-            width: 60px; height: 30px; background: #333;
-            border-radius: 15px; cursor: pointer; border: 2px solid #555;
-        }
-        .switch-toggle {
-            width: 26px; height: 26px; background: #777;
-            border-radius: 50%; transition: 0.3s;
-            transform: translateX(0);
-        }
-        .switch-btn.active { background: var(--neon); border-color: var(--neon); }
-        .switch-btn.active .switch-toggle { transform: translateX(30px); background: white; }
-
-        .hidden-text { opacity: 0.1; transition: 0.5s; font-size: 1.5rem; margin: 10px; border: 1px solid #333; padding: 5px; display: inline-block;}
-        .neon-wall.on .hidden-text { opacity: 1; border-color: var(--neon); }
-
-        /* --- GIMMICK 3: CLICK TO REVEAL (STICKER) --- */
-        .secret-seal {
-            position: absolute; top: 50%; left: 50%; transform: translate(-50%, -50%);
-            width: 250px; height: 150px;
-            background: repeating-linear-gradient(45deg, #c0392b, #c0392b 10px, #e74c3c 10px, #e74c3c 20px);
-            color: white; display: flex; justify-content: center; align-items: center;
-            font-size: 1.2rem; font-weight: bold; text-align: center;
-            cursor: pointer;
-            box-shadow: 0 5px 15px rgba(0,0,0,0.5);
-            transition: 0.5s; z-index: 10;
-        }
-        .secret-seal.removed {
-            transform: translate(-50%, -150%) rotate(-10deg);
-            opacity: 0; pointer-events: none;
-        }
-        .hidden-img {
-            width: 90%; height: 200px; object-fit: cover;
-            border: 5px solid white; transform: rotate(3deg);
-            margin: 50px auto; display: block;
+            margin-bottom: 40px;
+            transition: transform 0.3s ease;
         }
 
-        /* --- GIMMICK 4: CLICK TAB (EDUCATION) --- */
-        .folder-tab {
-            background: #d35400; color: white; padding: 10px;
-            margin: 20px; cursor: pointer; border-radius: 5px;
-            position: relative; overflow: hidden;
-            transition: 0.3s;
+        .timeline-item:hover {
+            transform: translateX(10px);
         }
-        .folder-tab:hover { background: #e67e22; }
-        .folder-content {
-            max-height: 0; overflow: hidden; transition: 0.5s;
-            background: white; padding: 0 10px; border-left: 3px solid #d35400;
+
+        .timeline-item::before {
+            content: '\f19d'; /* Icon หมวกปริญญา */
+            font-family: 'Font Awesome 6 Free';
+            font-weight: 900;
+            position: absolute;
+            left: -48px;
+            top: 0;
+            width: 35px;
+            height: 35px;
+            background: var(--accent);
+            color: white;
+            border-radius: 50%;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            font-size: 0.9rem;
+            border: 4px solid white;
+            box-shadow: 0 4px 10px rgba(0,0,0,0.1);
+            transition: all 0.3s ease;
         }
-        .folder-tab.open + .folder-content { max-height: 200px; padding: 10px; margin-bottom: 20px;}
-        .folder-arrow { float: right; transition: 0.3s; }
-        .folder-tab.open .folder-arrow { transform: rotate(180deg); }
 
-        /* Nav Buttons */
-        .nav-btn {
-            position: absolute; bottom: 15px; right: 15px;
-            background: transparent; border: 2px solid #555;
-            padding: 5px 15px; border-radius: 20px; cursor: pointer;
-            font-family: 'Courier Prime'; font-weight: bold;
-            transition: 0.2s;
+        .timeline-item:hover::before {
+            background: var(--primary);
+            transform: scale(1.2);
         }
-        .nav-btn:active { background: #333; color: white; }
-        .nav-back { right: auto; left: 15px; }
 
-        @keyframes scanMove { 0% { top: 0; } 100% { top: 100%; } }
+        /* Social Links */
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 30px;
+            margin-top: 25px;
+        }
 
+        .social-links a {
+            color: var(--text-main);
+            background: white;
+            width: 60px;
+            height: 60px;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            border-radius: 50%;
+            font-size: 1.8rem;
+            box-shadow: 0 5px 15px rgba(0,0,0,0.05);
+            transition: all 0.4s cubic-bezier(0.175, 0.885, 0.32, 1.275);
+            border: 2px solid transparent;
+        }
+
+        .social-links a:hover {
+            color: white;
+            background: var(--primary);
+            transform: translateY(-10px) rotate(8deg);
+            box-shadow: 0 15px 25px rgba(77, 166, 255, 0.4);
+            border-color: rgba(255,255,255,0.5);
+        }
+
+        .social-links a.email:hover { background: #ea4335; box-shadow: 0 15px 25px rgba(234, 67, 53, 0.4); }
+        .social-links a.drive:hover { background: #0f9d58; box-shadow: 0 15px 25px rgba(15, 157, 88, 0.4); }
+
+        /* Scroll Animations */
+        .hidden {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 0.8s cubic-bezier(0.2, 0.8, 0.2, 1), transform 0.8s cubic-bezier(0.2, 0.8, 0.2, 1);
+        }
+
+        .show {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        @media (max-width: 768px) {
+            .hero h1 { font-size: 2.5rem; }
+            header { padding: 15px 20px; flex-direction: column; gap: 10px; }
+            header.scrolled { padding: 10px 20px; }
+            .nav-links { gap: 15px; font-size: 0.9rem; }
+            .card { padding: 25px; }
+        }
     </style>
 </head>
 <body>
 
-    <div class="book">
+    <header id="navbar">
+        <a href="#" class="logo">Nattawat <span>J.</span></a>
+        <nav class="nav-links">
+            <a href="#about">เกี่ยวกับผม</a>
+            <a href="#skills">ทักษะ</a>
+            <a href="#experience">ประสบการณ์</a>
+            <a href="#contact">ติดต่อ</a>
+        </nav>
+    </header>
 
-        <div class="sheet" id="s1">
-            <div class="front cover">
-                <h1 style="font-family: 'Black Ops One'; font-size: 2.5rem; color: var(--alert);">TOP SECRET</h1>
-                <p>BIOMETRIC ACCESS REQUIRED</p>
-                
-                <div class="scanner-box" id="scanner" onclick="startScan()">
-                    <i class="fas fa-fingerprint fingerprint"></i>
-                    <div class="scan-line"></div>
-                </div>
-                
-                <p id="status-text" style="font-size: 0.8rem; color: #aaa;">[ CLICK TO SCAN ]</p>
+    <main>
+        <section class="hero">
+            <div class="profile-wrapper hidden">
+                <img src="117341432.jpeg" alt="Profile Picture" class="profile-img">
+                <div class="profile-badge"><i class="fas fa-apple-alt"></i></div>
             </div>
-            <div class="back" style="padding: 20px;">
-                <div style="border-bottom: 2px solid #333; padding-bottom: 10px; margin-bottom: 20px;">
-                    <h2>AGENT PROFILE</h2>
+            <h1 class="hidden">สวัสดีครับ ผม <span>Nattawat J.</span></h1>
+            <div class="typewriter hidden" id="typewriter-text"></div>
+        </section>
+
+        <section id="about">
+            <h2 class="section-title hidden">แรงบันดาลใจ & เป้าหมาย</h2>
+            <div class="card hidden">
+                <div class="highlight-quote">
+                    "ผมเชื่อเสมอว่า ห้องเรียนประถมคือรากฐานที่สำคัญที่สุดของชีวิต"
                 </div>
-                <img src="117341432.jpeg" onerror="this.src='https://via.placeholder.com/150'" style="width: 120px; height: 150px; object-fit: cover; border: 1px solid #333; float: left; margin-right: 15px;">
-                <p><strong>Code:</strong> Pongpat</p>
-                <p><strong>Class:</strong> Educator</p>
-                <p><strong>Status:</strong> Active</p>
-                <div style="clear: both; margin-top: 20px; padding: 10px; background: #fff; border: 1px dashed #333;">
-                    "มุ่งมั่นพัฒนาการเรียนรู้ด้วยนวัตกรรม"
-                </div>
-                <button class="nav-btn" onclick="flip(1)">OPEN FILE >></button>
+                <p style="text-indent: 2em; text-align: justify;">
+                    จุดเริ่มต้นของการอยากเป็นครูของผม คือความสุขที่ได้เห็นเด็กๆ เติบโตและสนุกกับการเรียนรู้สิ่งใหม่ๆ ผมมุ่งมั่นที่จะเป็นครูที่ไม่ใช่แค่คนสอนหนังสือหน้าชั้นเรียน แต่พร้อมเป็น <strong>'พื้นที่ปลอดภัย'</strong> ให้เด็กๆ กล้าคิด กล้าตั้งคำถาม และดึงศักยภาพที่ซ่อนอยู่ในตัวของพวกเขาออกมาให้ได้มากที่สุด ในแบบที่พวกเขาเป็นครับ
+                </p>
             </div>
-        </div>
+        </section>
 
-        <div class="sheet" id="s2">
-            <div class="front" style="padding: 30px;">
-                <h2>EDUCATION LOG</h2>
-                
-                <div class="folder-tab" onclick="toggleTab(this)">
-                    2024 - Present <i class="fas fa-chevron-down folder-arrow"></i>
+        <section id="skills">
+            <h2 class="section-title hidden">ทักษะความสามารถ</h2>
+            <div class="card hidden">
+                <p style="text-align: center; margin-bottom: 25px;">พร้อมสร้างสรรค์ห้องเรียนให้เป็นมากกว่าที่เรียนหนังสือ</p>
+                <div class="skills-container">
+                    <span class="skill-tag"><i class="fas fa-child"></i> จิตวิทยาเด็กประถม</span>
+                    <span class="skill-tag"><i class="fas fa-palette"></i> ออกแบบสื่อการสอน</span>
+                    <span class="skill-tag"><i class="fas fa-gamepad"></i> กิจกรรมนันทนาการ (Active Learning)</span>
+                    <span class="skill-tag"><i class="fas fa-heart"></i> การจัดการชั้นเรียนเชิงบวก</span>
+                    <span class="skill-tag"><i class="fas fa-laptop-code"></i> การผลิตสื่อดิจิทัล</span>
                 </div>
-                <div class="folder-content">
-                    <strong>Bachelor of Education</strong><br>
-                    Major: Thai Language<br>
-                    GPA: 3.85 (Outstanding)
-                </div>
-
-                <div class="folder-tab" onclick="toggleTab(this)">
-                    High School <i class="fas fa-chevron-down folder-arrow"></i>
-                </div>
-                <div class="folder-content">
-                    Science-Math Program<br>
-                    Head of Student Council
-                </div>
-
-                <button class="nav-btn nav-back" onclick="flipBack(1)"><< BACK</button>
-                <button class="nav-btn" onclick="flip(2)">NEXT PAGE >></button>
             </div>
-            
-            <div class="back neon-wall" id="neonWall">
-                <div style="padding: 30px;">
-                    <h2>SKILL LAB</h2>
-                    <p style="font-size: 0.8rem;">TURN ON THE LIGHT TO SEE</p>
-                    
-                    <div class="switch-btn" onclick="toggleLight()">
-                        <div class="switch-toggle"></div>
+        </section>
+
+        <section id="experience">
+            <h2 class="section-title hidden">ประสบการณ์</h2>
+            <div class="card hidden">
+                <div class="experience-timeline">
+                    <div class="timeline-item">
+                        <h3 style="color: var(--primary);">การสังเกตการสอนและจัดกิจกรรม</h3>
+                        <p class="text-muted" style="margin-bottom: 5px;"><i class="fas fa-school"></i> โรงเรียนระดับประถมศึกษา (ปัจจุบัน)</p>
+                        <p>ลงพื้นที่เรียนรู้พฤติกรรมผู้เรียนและช่วยออกแบบสื่อการสอนที่กระตุ้นความสนใจ เพื่อสร้างบรรยากาศการเรียนรู้เชิงบวก</p>
                     </div>
-
-                    <div style="margin-top: 50px; text-align: center;">
-                        <div class="hidden-text">PYTHON</div>
-                        <div class="hidden-text">JAVA</div>
-                        <div class="hidden-text">SQL</div>
-                        <div class="hidden-text">TEACHING</div>
-                        <div class="hidden-text">CREATIVE</div>
+                    <div class="timeline-item">
+                        <h3 style="color: var(--primary);">ค่ายอาสาพัฒนาการศึกษา</h3>
+                        <p class="text-muted" style="margin-bottom: 5px;"><i class="fas fa-campground"></i> กิจกรรมชมรม / คณะ</p>
+                        <p>ร่วมจัดกิจกรรมสันทนาการและให้ความรู้แก่น้องๆ ในพื้นที่ห่างไกล ฝึกทักษะการแก้ปัญหาเฉพาะหน้าและการทำงานร่วมกับผู้อื่น</p>
                     </div>
                 </div>
-                <button class="nav-btn" onclick="flip(3)" style="border-color: #555; color: #555;">NEXT >></button>
             </div>
-        </div>
+        </section>
 
-        <div class="sheet" id="s3">
-            <div class="front" style="background: white; padding: 20px; text-align: center;">
-                <h2>EVIDENCE #001</h2>
-                <div style="position: relative; width: 100%; height: 250px; margin-top: 30px;">
-                    <img src="https://images.unsplash.com/photo-1531482615713-2afd69097998?ixlib=rb-4.0.3&w=300" class="hidden-img">
-                    
-                    <div class="secret-seal" onclick="this.classList.add('removed')">
-                        <i class="fas fa-lock"></i>&nbsp;CONFIDENTIAL<br>CLICK TO REMOVE
-                    </div>
+        <section id="contact">
+            <h2 class="section-title hidden">ช่องทางการติดต่อ</h2>
+            <div class="card hidden" style="text-align: center;">
+                <p style="margin-bottom: 20px; font-size: 1.2rem;">ยินดีที่ได้รู้จักครับ! <br> หากต้องการพูดคุย แลกเปลี่ยนแนวทางการสอน หรือติดต่อเรื่องงาน สามารถทักมาได้เลยครับ</p>
+                <div class="social-links">
+                    <a href="#" class="facebook" title="Facebook"><i class="fab fa-facebook-f"></i></a>
+                    <a href="#" class="email" title="Email"><i class="fas fa-envelope"></i></a>
+                    <a href="#" class="drive" title="Portfolio Drive"><i class="fab fa-google-drive"></i></a>
                 </div>
-                <p>Volunteer Camp 2024</p>
-                <button class="nav-btn nav-back" onclick="flipBack(2)"><< BACK</button>
-                <button class="nav-btn" onclick="flip(4)">CONTACT >></button>
             </div>
-
-            <div class="back" style="background: #2c3e50; color: white; display: flex; flex-direction: column; justify-content: center; align-items: center;">
-                <h1>END OF FILE</h1>
-                <div style="border: 2px solid white; padding: 20px; text-align: center;">
-                    <p><i class="fas fa-phone"></i> 08x-xxx-xxxx</p>
-                    <p><i class="fas fa-envelope"></i> pongpat@email</p>
-                </div>
-                <button class="nav-btn nav-back" style="border-color: white; color: white;" onclick="flipBack(3)"><< REPLAY</button>
-            </div>
-        </div>
-
-    </div>
+        </section>
+    </main>
 
     <script>
-        // --- 1. SIMPLE FLIP LOGIC ---
-        function flip(pageNum) {
-            const sheet = document.getElementById('s' + pageNum);
-            sheet.style.transform = "rotateY(-180deg)";
-            setTimeout(() => { sheet.style.zIndex = pageNum; }, 400); // จัดเลเยอร์
+        // 1. Header Scroll Effect (ย่อขนาด Navbar เมื่อเลื่อนจอ)
+        const header = document.getElementById('navbar');
+        window.addEventListener('scroll', () => {
+            if (window.scrollY > 50) {
+                header.classList.add('scrolled');
+            } else {
+                header.classList.remove('scrolled');
+            }
+        });
+
+        // 2. Scroll Animation Logic (เปิดเผยเนื้อหาเมื่อเลื่อนมาถึง)
+        const observerOptions = {
+            root: null,
+            rootMargin: '0px',
+            threshold: 0.15
+        };
+
+        const observer = new IntersectionObserver((entries, observer) => {
+            entries.forEach((entry, index) => {
+                if (entry.isIntersecting) {
+                    // หน่วงเวลาให้โผล่มาทีละอันถ้าระยะใกล้กัน
+                    setTimeout(() => {
+                        entry.target.classList.add('show');
+                    }, index * 100); 
+                    observer.unobserve(entry.target);
+                }
+            });
+        }, observerOptions);
+
+        document.querySelectorAll('.hidden').forEach((element) => {
+            observer.observe(element);
+        });
+
+        // 3. Typing Effect Logic (พิมพ์ดีดอัตโนมัติ)
+        const texts = [
+            "นักศึกษาวิชาเอกการประถมศึกษา",
+            "ผู้สร้างแรงบันดาลใจให้เด็กๆ",
+            "พร้อมเป็นเพื่อนร่วมเรียนรู้"
+        ];
+        let count = 0;
+        let index = 0;
+        let currentText = "";
+        let letter = "";
+        let isDeleting = false;
+        
+        function type() {
+            if (count === texts.length) {
+                count = 0;
+            }
+            currentText = texts[count];
+
+            if (isDeleting) {
+                letter = currentText.slice(0, --index);
+            } else {
+                letter = currentText.slice(0, ++index);
+            }
+
+            document.getElementById('typewriter-text').textContent = letter + '|';
+
+            let typeTimeout = isDeleting ? 40 : 100;
+
+            if (!isDeleting && letter.length === currentText.length) {
+                typeTimeout = 2500; 
+                isDeleting = true;
+            } else if (isDeleting && letter.length === 0) {
+                isDeleting = false;
+                count++;
+                typeTimeout = 500;
+            }
+
+            setTimeout(type, typeTimeout);
         }
 
-        function flipBack(pageNum) {
-            const sheet = document.getElementById('s' + pageNum);
-            sheet.style.transform = "rotateY(0deg)";
-            setTimeout(() => { sheet.style.zIndex = 10 - pageNum; }, 400);
-        }
-
-        // --- 2. CLICK SCANNER ---
-        function startScan() {
-            const scanner = document.getElementById('scanner');
-            const status = document.getElementById('status-text');
-            
-            if(scanner.classList.contains('success')) return; // สแกนไปแล้วไม่ต้องทำซ้ำ
-
-            scanner.classList.add('scanning');
-            status.innerText = "SCANNING...";
-            status.style.color = "#00ff41";
-
-            // รอ 1.5 วินาที แล้วเปิดอัตโนมัติ
-            setTimeout(() => {
-                scanner.classList.remove('scanning');
-                scanner.classList.add('success');
-                status.innerText = "ACCESS GRANTED";
-                
-                setTimeout(() => {
-                    flip(1); // เปิดหน้าถัดไปเอง
-                }, 800);
-            }, 1500);
-        }
-
-        // --- 3. CLICK TAB ---
-        function toggleTab(el) {
-            el.classList.toggle('open');
-        }
-
-        // --- 4. CLICK LIGHT SWITCH ---
-        function toggleLight() {
-            const wall = document.getElementById('neonWall');
-            const btn = document.querySelector('.switch-btn');
-            wall.classList.toggle('on');
-            btn.classList.toggle('active');
-        }
-
+        setTimeout(type, 1000);
     </script>
 </body>
 </html>
